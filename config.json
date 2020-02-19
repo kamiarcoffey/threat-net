@@ -1,0 +1,6 @@
+{
+	"cache": {
+		"maxItems":"500",
+		"timeToLive":"30"
+	}
+}

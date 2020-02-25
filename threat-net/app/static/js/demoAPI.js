@@ -2,17 +2,20 @@ document.getElementById('button').addEventListener('click', writeName, false); /
 
 function writeName(e) {
 
-
-
     var changeLabel = function changeLabel(label, value) {
       document.getElementById(label).value = value;
     };
 
-    $('#bt').click(function() {
-       $('#ex').click();
-    });
+    $.ajax({
+        type : "POST",
+        url : '/demo',
+        dataType: "json",
+        data: {},
+        contentType: 'application/json;charset=UTF-8',
+        success: function (data) {
+            changeLabel('name', data['name']);
+            console.log(data);
+            }
+        });
 
-    //    API call here
-
-    changeLabel('name', 'Kamiar');
 }

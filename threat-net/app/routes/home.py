@@ -15,8 +15,16 @@ bp = Blueprint('home', __name__, url_prefix='')
 
 # did = request.args.get('xyz', )
 
+python_data = {'name': 'Kamiar'} # can be anything in python including just straight JSON
+
 
 @bp.route('/')
 @bp.route('/home')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', jinja_data=python_data)
+
+
+'''Example API Style data passing'''
+@bp.route('/demo', methods=['GET', 'POST'])
+def dummyAPI():
+    return python_data

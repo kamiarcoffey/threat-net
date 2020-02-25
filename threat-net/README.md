@@ -19,10 +19,7 @@ $ pip install -r requirements.txt
 For dev use:
 $ export FLASK_ENV=development
 
-Otherwise the environment is by default set to production:
-$ export FLASK_ENV=production
-
 You may also need to set the app launch file:
-$ export FLASK_APP=app/__init__.py
+$ export FLASK_APP=app/run.py
 
 $ flask run

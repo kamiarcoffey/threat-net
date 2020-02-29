@@ -22,10 +22,15 @@ Author: Kamiar Coffey
     <label for="name">This Box Will Update</label>
     <input class="form-control" id="name" placeholder="World?">
   </div>
-</form>
 
 <button id='button' class="btn btn-primary">Say Hello</button>
 <script type="text/javascript" src="{{url_for('static', filename='js/demoAPI.js')}}"></script>
+
+<div class="container">
+  <!-- calls the function name in home NOT the @ decorator route -->
+  <iframe src="{{ url_for('home.dummyAPI') }}"></iframe>
+</div>
+</form>
 
 
 

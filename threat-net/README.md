@@ -23,3 +23,14 @@ You may also need to set the app launch file:
 $ export FLASK_APP=app/run.py
 
 $ flask run
+
+
+
+
+## Example Routing
+
+1. pass a variable through Jinja via render_template
+2. call the flask api from a linked js file
+3. call the flask function from within html via src="{{ url_for('home.dummyAPI') }}"
+
+Number 3 is my personal choice for this project, and I've embedded it in an iframe to highlight it

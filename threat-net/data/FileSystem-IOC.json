@@ -1,0 +1,43 @@
+{
+   "$schema":"http://json-schema.org/draft-04/schema#",
+   "definitions":{
+      "FileSystem-IOC":{
+         "title":"FileSystemIOC",
+         "type":"object",
+         "description":"Captures file system based indicators of compromise by a malware binary.",
+         "properties":{
+            "filename":{
+               "type":"string",
+               "description":"Name of the file dropped / written"
+            },
+            "md5":{
+               "type":"string",
+               "description":"MD5 of the dropped / written artifact"
+            },
+            "sha1":{
+               "type":"string",
+               "description":"SHA1 of the dropped / written artifact"
+            },
+            "sha256":{
+               "type":"string",
+               "description":"SHA56 of the dropped / written artifact"
+            },
+            "ssdeep":{
+               "type":"string",
+               "description":"ssdeep hash of the dropped / written artifact"
+            },
+            "path":{
+               "type":"string",
+               "description":"Filepath"
+            }
+         },
+         "anyOf":[
+            {
+               "required":[
+                  ""
+               ]
+            }
+         ]
+      }
+   }
+}

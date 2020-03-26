@@ -3,7 +3,7 @@
 # To Run
 
 ### use virtual env
-### run
+### run (mac/unix)
 
 $ cd threat-net
 
@@ -24,8 +24,26 @@ $ export FLASK_APP=app/run.py
 
 $ flask run
 
+### run (windows cmd)
 
+$ cd threat-net
 
+If you have not set up a virtual environment, you may need to do:
+$ python3 -m venv env
+
+Otherwise actiate the env via:
+$ env\Scripts\activate.bat
+
+If this is the first time you are running:
+$ pip install -r requirements.txt
+
+For dev use:
+$ set FLASK_ENV=development
+
+You may also need to set the app launch file:
+$ set FLASK_APP=run.py
+
+$ flask run
 
 ## Example Routing
 

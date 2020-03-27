@@ -16,6 +16,10 @@ $ source app/env/bin/activate
 If this is the first time you are running:
 $ pip install -r requirements.txt
 
+You also need to install all required npm packages:
+`cd threat-net/app/static`
+`npm install`
+
 For dev use:
 $ export FLASK_ENV=development
 

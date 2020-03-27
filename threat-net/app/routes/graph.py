@@ -12,7 +12,7 @@ bp = Blueprint('graph', __name__, url_prefix='/graph')
 
 @bp.route('/', methods=['GET', 'POST'])
 def displayGraph():
-    return "Not Implemented"
+    return render_template('graph.html')
 
 
 

@@ -16,6 +16,10 @@ $ source app/env/bin/activate
 If this is the first time you are running:
 $ pip install -r requirements.txt
 
+You also need to install all required npm packages:
+`cd threat-net/app/static`
+`npm install`
+
 For dev use:
 $ export FLASK_ENV=development
 
@@ -52,3 +56,14 @@ $ flask run
 3. call the flask function from within html via src="{{ url_for('home.dummyAPI') }}"
 
 Number 3 is my personal choice for this project, and I've embedded it in an iframe to highlight it
+
+
+## Running on AWS
+The current configuration is ready to be deployed on AWS elastic beanstalk. Follow these steps to deploy on AWS:
+- In threat-net/Dockerfile, uncomment the 2 lines under the "# For AWS Docker configuration", and comment out the line under "# For Local Docker Configuration"
+- Create a new Elastic Beanstalk application
+- Create a new Environment:
+	- Select "Preconfigured Platform" and the "Preconfigured - Docker" Python option
+	- Select "Upload your code" under the "Application Code" Section
+	- Run "zip threat-net.zip *" in the directory of this README to create a zip file of the code, then upload threat-net.zip under the "Upload Your Code" Section
+	- Select "Create the Environment" and wait for the application to start up

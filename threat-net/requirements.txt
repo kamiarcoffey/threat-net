@@ -8,3 +8,4 @@ urllib3==1.25.6
 Werkzeug==0.16.0
 Flask-Session==0.3.1
 redis==2.10.5
+cachetools==4.0.0

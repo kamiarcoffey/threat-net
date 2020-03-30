@@ -2,15 +2,22 @@
   "name": "threat-net",
   "version": "1.0.0",
   "dependencies": {
-  	"cytoscape": "^3.14.1",
-  	"react": "^16.13.1",
-  	"react-dom": "^16.13.1",
-  	"react-cytoscapejs": "^1.2.1" 
+    "cytoscape": "^3.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-cytoscapejs": "^1.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "babel-bridge": "^1.12.11",
+    "babel-loader": "^8.1.0",
+    "webpack": "^1.15.0"
   },
   "description": "ioc graphing utility",
   "repository": {
-  	"type": "git",
-  	"url": "https://github.com/kamiarcoffey/threat-net/"
+    "type": "git",
+    "url": "https://github.com/kamiarcoffey/threat-net/"
   },
   "main": "index.js",
   "scripts": {

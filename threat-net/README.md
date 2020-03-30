@@ -28,6 +28,10 @@ $ export FLASK_APP=app/run.py
 
 $ flask run
 
+To compile React/js code with Babel:
+`cd threat-net/app/static`
+`webpack --watch`
+
 ### run (windows cmd)
 
 $ cd threat-net

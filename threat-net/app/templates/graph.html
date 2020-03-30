@@ -1,16 +1,14 @@
 {% extends "base.html" %}
 
  {% block head %}
-   {{ super() }}
-   <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.0/d3.min.js"></script>
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  {{ super() }}
+  <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.0/d3.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <script src="{{url_for('static', filename='node_modules/react/umd/react.development.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/react-dom/umd/react-dom.development.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/cytoscape/dist/cytoscape.min.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/prop-types/prop-types.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/react-cytoscapejs/dist/react-cytoscape.js')}}"></script>
-
-
   <style>
     body {
       font: 14pt helvetica neue, helvetica, sans-serif;
@@ -33,63 +31,15 @@
  {% endblock %} <!-- endblock head -->
  
  {% block app_content %}
+ <body>
   <h1>react-cytoscapejs demo</h1>
 
-  <div id="root"></div>
+  <div id="graph"></div>
   <textarea id="props"></textarea>
   <button id="update">Render</button>
 
-  <script>
-    window.addEventListener('DOMContentLoaded', function () {
-      const exampleProps = {
-        id: 'cy',
-        className: 'foo bar',
-        style: {
-          'border': '1px solid #ccc',
-          'width': '400px',
-          'height': '400px'
-        },
-        global: 'cy',
-        elements: [
-          { data: { id: 'a', label: 'apple' }, position: { x: 0, y: 0 } },
-          { data: { id: 'b', label: 'banana' }, position: { x: 100, y: 0 } },
-          { data: { id: 'c', label: 'cherry' }, position: { x: 200, y: 0 } }
-        ],
-        layout: {
-          name: 'preset'
-        }
-      };
+  <div id="reactEntry"></div>
 
-      class TestComponent extends React.Component {
-        constructor(props) {
-          super(props);
-
-          props.setStateRef(this.setState.bind(this));
-
-          this.state = exampleProps;
-        }
-
-        render() {
-          return React.createElement(ReactCytoscape, this.state);
-        }
-      }
-
-      const textBox = document.getElementById('props');
-      const btn = document.getElementById('update');
-
-      btn.addEventListener('click', () => {
-        update(JSON.parse(textBox.value));
-      });
-
-      let update;
-
-      ReactDOM.render(
-        React.createElement(TestComponent, { setStateRef: ref => update = ref }),
-        document.getElementById('root')
-      );
-
-      textBox.value = JSON.stringify(exampleProps, null, 2);
-    });
-  </script>
- 
+  <script type="text/javascript" src="{{ url_for('static', filename='bundle.js') }}"></script>
+ </body>
  {% endblock %}

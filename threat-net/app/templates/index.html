@@ -1,0 +1,37 @@
+<!--
+Author: Kamiar Coffey
+- index.html extends base.html
+ -->
+
+
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.0/d3.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" /
+{% endblock %} <!-- endblock head -->
+
+{% block app_content %}
+<h3> Variable Passing: Hello {{ jinja_data['name'] }} </h3>
+
+
+<h3> API Calling: </h3>
+<form>
+  <div class="form-group">
+    <label for="name">This Box Will Update</label>
+    <input class="form-control" id="name" placeholder="World?">
+  </div>
+
+<button id='button' class="btn btn-primary">Say Hello</button>
+<script type="text/javascript" src="{{url_for('static', filename='js/demoAPI.js')}}"></script>
+
+<div class="container">
+  <!-- calls the function name in home NOT the @ decorator route -->
+  <iframe src="{{ url_for('home.dummyAPI') }}"></iframe>
+</div>
+</form>
+
+
+
+{% endblock %}

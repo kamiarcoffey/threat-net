@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
+  mode: 'development',
   entry: path.join(__dirname, '/js/App.js'),
   output: {
     // Output the bundled file.
@@ -10,19 +11,40 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx']
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.jsx?$/,
-        loader: 'babel',
-        exclude: /node_modules/,
-        query: {
-          cacheDirectory: true,
-          presets: ['react', 'es2015']
+        test: /\.(jsx|js)?$/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ["@babel/react", "@babel/preset-env"]
+            }
+          },
+          exclude: /node_modules/
+
+        },
+        {
+          test: /\.css$/,
+          use: [ 'style-loader', 'css-loader' ]
+      },
+      {
+          test: /\.(woff|woff2|ttf|svg|eot)$/,
+          use: [
+              {
+                  loader: 'file-loader',
+                  options: {}
+              }
+          ]
+        },
+        {
+          test: /\.(scss|sass)$/,
+          use: ["style-loader", "css-loader", "sass-loader"],
+          exclude: /node_modules/
         }
-      }
+      
     ]
   }
 };

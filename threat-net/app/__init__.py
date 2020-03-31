@@ -7,6 +7,8 @@ import json
 
 from app.routes import home
 from app.routes import graph
+from app.routes import userGraphDB
+from app.routes import webrootDB
 
 class Config(object):
     JOBS = []
@@ -20,6 +22,8 @@ app.secret_key = 'dev'
 
 app.register_blueprint(home.bp)
 app.register_blueprint(graph.bp)
+app.register_blueprint(userGraphDB.bp)
+app.register_blueprint(webrootDB.bp)
 
 from app.models.DocumentDB import *
 
@@ -32,4 +36,4 @@ def before_request():
 
 @app.context_processor
 def provide_constants():
-    return {"athor": {"Kamiar Coffey"}}
+    return {"author": {"Kamiar Coffey"}}

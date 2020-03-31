@@ -20,6 +20,9 @@ You also need to install all required npm packages:
 `cd threat-net/app/static`
 `npm install`
 
+To use Webpack's automatic js reloading; while in '/threat-net/app/static', run:
+$ webpack --watch
+
 For dev use:
 $ export FLASK_ENV=development
 

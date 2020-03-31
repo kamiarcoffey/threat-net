@@ -2,7 +2,7 @@
 
  {% block head %}
   {{ super() }}
-  <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.0/d3.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.0/d3.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <script src="{{url_for('static', filename='node_modules/react/umd/react.development.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/react-dom/umd/react-dom.development.js')}}"></script>
@@ -26,20 +26,20 @@
       height: 400px;
       margin-top: 16px;
     }
-  </style>
+  </style> -->
 
  {% endblock %} <!-- endblock head -->
  
  {% block app_content %}
  <body>
-  <h1>react-cytoscapejs demo</h1>
+  <!-- <h1>react-cytoscapejs demo</h1>
 
   <div id="graph"></div>
   <textarea id="props"></textarea>
-  <button id="update">Render</button>
+  <button id="update">Render</button> -->
 
   <div id="reactEntry"></div>
 
-  <script type="text/javascript" src="{{ url_for('static', filename='bundle.js') }}"></script>
+  <script type="text/javascript" src="../static/bundle.js"></script>
  </body>
  {% endblock %}

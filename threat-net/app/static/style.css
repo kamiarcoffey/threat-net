@@ -1,0 +1,77 @@
+#page-container {
+ width: 100%;
+ height: 100%;
+ margin: 0px;
+ padding: 0px;
+ display: flex;
+ flex-direction: column;
+}
+#content-container {
+ margin: 0px;
+ padding: 0px;
+ width: 100%;
+ flex: 1 1 auto;
+ display: flex;
+ flex-direction: row;
+}
+
+/*Nav bar*/
+#nav-bar {
+ background-color: #324d8a;
+ margin: 0px;
+ padding: 0px;
+ height: 50px;
+ flex: 0 0 50px;
+ display: flex;
+ justify-content: right;
+}
+#save-button {
+ background-color: #075da8;
+ padding: 5px;
+ flex: 0 0 50px;
+ position: relative;
+}
+#load-button {
+ background-color: #c41902;
+ padding: 5px;
+ flex: 0 0 50px;
+ position: relative;
+}
+#logo-container {
+ flex: 1 1 200px;
+ color: aliceblue;
+}
+#logo-text {
+ margin: 5px 5px 5px 10px;
+}
+
+/*Side pane*/
+#side-pane {
+ background-color: #cfc4c2;
+ display: flex;
+ height: calc(100vh - 50px);
+ flex: 0 0 350px;
+}
+#add-node-menu {
+ padding: 10px;
+}
+.sidebar-divider {
+ width: 310px;
+ margin: 5px 20px 0px 20px;
+ border: 1px solid #424242;
+}
+.sidebar-title {
+ color: #324d8a;
+ font-size: 24px;
+ text-align: left;
+ margin: 10px 0px 0px 20px;
+}
+
+/*Graph pane*/
+#graph-pane {
+ background-color: rgb(255, 255, 255);
+ display: inline;
+ height: calc(100vh - 50px);
+ flex: 1 1 350px;
+ box-shadow: inset 15px 15px 12px 0px rgba(59,59,59,0.12);
+}

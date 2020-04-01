@@ -1,8 +1,10 @@
 .CytoContainer{
     display: flex;
     justify-content: space-evenly;
+    flex: 1 1 400px;
+    height: calc(100vh - 50px);
 }
 
 .CytoscapeGraph{
-    border: 4px solid black;
+    //border: 4px solid black;
 }

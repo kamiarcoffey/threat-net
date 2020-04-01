@@ -68,8 +68,9 @@ stylesheet={[
         'source-arrow-color': 'black'
       }
     }
-
+    ]}
 elements={elements} style={ { width: 'calc(100vw - 400px)', height: 'calc(100vh - 50px)' } }
+/>
 
 class Cytoscape extends React.Component {
     constructor(props){

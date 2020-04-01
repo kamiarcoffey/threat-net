@@ -3,6 +3,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 // import nodeHtmlLabel from 'cytoscape-node-html-label';
 
 
+
 let elements = [
     { data: { id: 'ioc1', label: 'IOC 1' }, position: { x: 150, y: 400 } },
     { data: { id: 'ioc2', label: 'IOC 2' }, position: { x: 250, y: 50  } },
@@ -67,9 +68,8 @@ stylesheet={[
         'source-arrow-color': 'black'
       }
     }
-]}
+
 elements={elements} style={ { width: 'calc(100vw - 400px)', height: 'calc(100vh - 50px)' } }
-/>
 
 class Cytoscape extends React.Component {
     constructor(props){

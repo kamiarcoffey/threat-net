@@ -1,61 +1,76 @@
+
 # Threat Net
 
-# To Run
+Threat Net is a graphing utility used to display connections between Indicators of Compromise (IoC), built for Webroot as a senior capstone project in Fall 2019 to Spring 2020.
 
-### use virtual env
-### run (mac/unix)
+## Installation Instructions
 
-$ cd threat-net
-
-If you have not set up a virtual environment, you may need to do:
-$ python3 -m venv env
-
-Otherwise actiate the env via:
-$ source app/env/bin/activate
-
+### Running on Mac/Unix
+#### Starting the Backend
+```bash
+cd threat-net
+```
 If this is the first time you are running:
-$ pip install -r requirements.txt
-
-You also need to install all required npm packages:
-`cd threat-net/app/static`
-`npm install`
-
-To use Webpack's automatic js reloading; while in '/threat-net/app/static', run:
-$ webpack --watch
-
+```bash
+python3 -m venv env
+pip install -r requirements.txt
+```
+Otherwise activate the environment via:
+```bash
+source env/bin/activate
+```
 For dev use:
-$ export FLASK_ENV=development
-
+```bash
+export FLASK_ENV=development
+```
 You may also need to set the app launch file:
-$ export FLASK_APP=app/run.py
+```bash
+export FLASK_APP=run.py
+```
+To run the backend:
+```bash
+flask run
+```
 
-$ flask run
-
-To compile React/js code with Babel:
-`cd threat-net/app/static`
-`webpack --watch`
-
-### run (windows cmd)
-
-$ cd threat-net
-
+#### Starting the Frontend
+You need to install all required npm packages:
+```bash
+cd threat-net/app/static
+npm install
+```
+To use Webpack's automatic js reloading with Babel:
+```bash
+cd threat-net/app/static
+webpack --watch
+```
+### Running on Windows (Outdated)
+```bash
+cd threat-net
+```
 If you have not set up a virtual environment, you may need to do:
-$ python3 -m venv env
-
+```bash
+python3 -m venv env
+```
 Otherwise actiate the env via:
-$ env\Scripts\activate.bat
-
+```bash
+env\Scripts\activate.bat
+```
 If this is the first time you are running:
+```bash
 $ pip install -r requirements.txt
-
+```
 For dev use:
-$ set FLASK_ENV=development
-
+```bash
+set FLASK_ENV=development
+```
 You may also need to set the app launch file:
-$ set FLASK_APP=run.py
-
-$ flask run
-
+```bash
+set FLASK_APP=run.py
+```
+To run the backend:
+```
+flask run
+```
 ## Example Routing
 
 1. pass a variable through Jinja via render_template

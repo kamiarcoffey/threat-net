@@ -43,7 +43,7 @@ To use Webpack's automatic js reloading with Babel:
 cd threat-net/app/static
 webpack --watch
 ```
-### Running on Windows (Outdated)
+### Running on Windows
 ```bash
 cd threat-net
 ```
@@ -68,8 +68,31 @@ You may also need to set the app launch file:
 set FLASK_APP=run.py
 ```
 To run the backend:
-```
+```bash
 flask run
+```
+#### Starting the Frontend
+You need to install all required npm packages:
+```bash
+cd threat-net\app\static
+npm install
+```
+To use Webpack's automatic js reloading with Babel:
+```bash
+cd threat-net\app\static
+webpack --watch
+```
+#### Connecting to a local MongoDB instance
+First, install the appropriate [MongoDB Community Server](https://www.mongodb.com/download-center/community?tck=docs_server) 
+You do not need to install it as a service. 
+Create a folder to store the DB data
+```bash
+cd C:\
+md "\data\db"
+```
+Now run mongodb (change --dbpath if you made a folder in a different location)
+```bash
+"C:\Program Files\MongoDB\Server\4.2\bin\mongod.exe" --dbpath="c:\data\db"
 ```
 ## Example Routing
 

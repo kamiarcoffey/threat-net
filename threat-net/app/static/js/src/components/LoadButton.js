@@ -11,7 +11,10 @@ class LoadButton extends Component {
     loadGraph = () => {
         $.ajax({
             type : "GET",
-            url : '/graph/loadGraph',
+
+            //hard coded id for now
+            //TODO: generate unique graph id
+            url : '/graph/loadGraph?id=1', 
             context: this,
             success: function (data) {
                 this.setData(data);

@@ -24,12 +24,15 @@ class SaveButton extends Component {
     saveGraph = () => {
         const cyData = this.state.cyData;
         console.log(cyData);
+        var json_data = JSON.stringify(cyData);
         $.ajax({
             type : "POST",
-            url : '/graph/saveGraph',
+            
+            //hard coded id and name for now
+            //TODO: generate unique graph id and prompt user for name when graph is saved
+            url : '/graph/saveGraph?id=1&name=test_graph', 
             dataType: "json",
-            data: {cyData},
-            contentType: 'application/json;charset=UTF-8',
+            data: {json_data},
             success: function (data) {
                 console.log(data);
                 }

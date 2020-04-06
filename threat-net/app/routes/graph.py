@@ -6,9 +6,17 @@ from app.models.DocumentDB import *
 
 from werkzeug.datastructures import ImmutableMultiDict
 
-bp = Blueprint('graph', __name__, url_prefix='/graph')
-
 import json
+from pymongo import MongoClient
+
+#TODO: add logic for when the DBs are on AWS instead of local, configure MongoClient appropriately
+#see https://docs.aws.amazon.com/documentdb/latest/developerguide/connect_programmatically.html
+client = MongoClient(serverSelectionTimeoutMS = 500) #defaults to localhost:27017, which are the mongoDB defaults 
+
+graph_db = client.graph_db #creates db if it doesn't exist already
+graph_collection = graph_db.graph_collection #creates collection if it doesn't exist already
+
+bp = Blueprint('graph', __name__, url_prefix='/graph')
 
 @bp.route('/', methods=['GET', 'POST'])
 def displayGraph():
@@ -17,46 +25,87 @@ def displayGraph():
 
 @bp.route('/saveGraph', methods=['POST'])
 def saveGraph():
-    # Graph data saved as blob sent here
-	return {'Message' : 'saving graph :)'}
+  # Graph data saved as blob sent here
+  id = request.args.get("id")
+  name = request.args.get("name")
+  json_string_data = request.form.to_dict()["json_data"]
+
+  #list of dictionaries, each dict represents a cytoscape element (node or edge)
+  json_dict_data = json.loads(json_string_data) 
+  
+  #associate name and id before saving to DB
+  graph_document = {"_id": id, "name" : name, "graph_data" : json_dict_data}
+
+  #inserts if there is no graph with the id (i.e. the graph is new)
+  try:
+    graph_collection.replace_one({"_id" : id} , graph_document, upsert = True) 
+  except:
+    print("NO DB CONNECTED. Save failed.")
+    return {'Message' : "Could not save graph, no DB connected."}
+
+  return {'Message' : 'sucessfully saved {}. ID: {}'.format(name, id)}
 
 @bp.route('/graphList', methods=['GET'])
 def getGraphList():
-    return 'List'
+  try:
+    graph_list = graph_collection.find({}, {"_id": 1, "name": 1}) #only return name and id
+  except:
+    print("NO DB CONNECTED. Could not get graph list.")
+    return "ERROR: No DB connected"
+
+  graph_dict = {}
+  for graph in graph_list:
+    graph_dict[graph["_id"]] = graph["name"]
+  
+  return json.dumps(graph_dict)
 
 @bp.route('/loadGraph', methods=['GET'])
 def loadGraph():
-    # Load graph with specified identifier
-    return '''[
-        { data: { id: 'ioc1', label: 'IOC 1' }, position: { x: 150, y: 400 } },
-        { data: { id: 'ioc2', label: 'IOC 2' }, position: { x: 250, y: 50  } },
-        { data: { id: 'ioc3', label: 'IOC 3' }, position: { x: 250, y: 200 } },
-        { data: { id: 'ioc4', label: 'IOC 4' }, position: { x: 350, y: 200 } },
-        { data: { id: 'ioc5', label: 'IOC 5' }, position: { x: 150, y: 300 } },
-        { data: { id: 'ioc6', label: 'IOC 6' }, position: { x: 250, y: 300 } },
-        { data: { id: 'ioc7', label: 'IOC 7' }, position: { x: 350, y: 400 } },
-        {
-          data: { source: 'ioc1', target: 'ioc2', label: '1 -> 2' }
-        },
-        {
-          data: { source: 'ioc1', target: 'ioc3', label: '1 -> 3' }
-        },
-        {
-          data: { source: 'ioc1', target: 'ioc4', label: '1 -> 4' }
-        },
-        {
-          data: { source: 'ioc1', target: 'ioc5', label: '1 -> 5' }
-        },
-        {
-          data: { source: 'ioc1', target: 'ioc6', label: '1 -> 6' }
-        },
-        {
-          data: { source: 'ioc1', target: 'ioc7', label: '1 -> 7' }
-        },
-        {
-          data: { source: 'ioc2', target: 'ioc5', label: '2 -> 5' }
-        },
-        {
-          data: { source: 'ioc3', target: 'ioc4', label: '3 -> 4' }
-        }
-    ]'''
+  dummy_data = '''[
+      { data: { id: 'ioc1', label: 'IOC 1' }, position: { x: 150, y: 400 } },
+      { data: { id: 'ioc2', label: 'IOC 2' }, position: { x: 250, y: 50  } },
+      { data: { id: 'ioc3', label: 'IOC 3' }, position: { x: 250, y: 200 } },
+      { data: { id: 'ioc4', label: 'IOC 4' }, position: { x: 350, y: 200 } },
+      { data: { id: 'ioc5', label: 'IOC 5' }, position: { x: 150, y: 300 } },
+      { data: { id: 'ioc6', label: 'IOC 6' }, position: { x: 250, y: 300 } },
+      { data: { id: 'ioc7', label: 'IOC 7' }, position: { x: 350, y: 400 } },
+      {
+        data: { source: 'ioc1', target: 'ioc2', label: '1 -> 2' }
+      },
+      {
+        data: { source: 'ioc1', target: 'ioc3', label: '1 -> 3' }
+      },
+      {
+        data: { source: 'ioc1', target: 'ioc4', label: '1 -> 4' }
+      },
+      {
+        data: { source: 'ioc1', target: 'ioc5', label: '1 -> 5' }
+      },
+      {
+        data: { source: 'ioc1', target: 'ioc6', label: '1 -> 6' }
+      },
+      {
+        data: { source: 'ioc1', target: 'ioc7', label: '1 -> 7' }
+      },
+      {
+        data: { source: 'ioc2', target: 'ioc5', label: '2 -> 5' }
+      },
+      {
+        data: { source: 'ioc3', target: 'ioc4', label: '3 -> 4' }
+      }
+  ]'''
+  id = request.args.get("id")
+
+  try:
+    graph_document = graph_collection.find_one({"_id" : id})
+  except:
+    print("NO DB CONNECTED. Returning hardcoded data.")
+    return dummy_data
+
+  #print(graph_document)
+
+  if graph_document is not None:
+    return json.dumps(graph_document["graph_data"])
+  else:
+    print("NO GRAPH WITH ID {} FOUND. Returning hardcoded data.".format(id))
+    return dummy_data

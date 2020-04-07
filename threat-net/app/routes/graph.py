@@ -25,8 +25,19 @@ def displayGraph():
 
 @bp.route('/saveGraph', methods=['POST'])
 def saveGraph():
-  # Graph data saved as blob sent here
-  id = request.args.get("id")
+  # Auto generate next id
+  id = 0
+  graph_list = graph_collection.find({}, {"_id": 1, "name": 1})
+  graph_dict = {}
+  for graph in graph_list:
+    graph_dict[graph["_id"]] = graph["name"]
+  for i in graph_dict.keys():
+    if graph_dict[i] == request.args.get("name"):
+      id = i
+  if id == 0:
+    if graph_dict:
+      id = max(graph_dict.keys()) + 1
+  
   name = request.args.get("name")
   json_string_data = request.form.to_dict()["json_data"]
 
@@ -45,6 +56,7 @@ def saveGraph():
 
   return {'Message' : 'sucessfully saved {}. ID: {}'.format(name, id)}
 
+
 @bp.route('/graphList', methods=['GET'])
 def getGraphList():
   try:
@@ -58,6 +70,7 @@ def getGraphList():
     graph_dict[graph["_id"]] = graph["name"]
   
   return json.dumps(graph_dict)
+
 
 @bp.route('/loadGraph', methods=['GET'])
 def loadGraph():
@@ -94,7 +107,11 @@ def loadGraph():
         data: { source: 'ioc3', target: 'ioc4', label: '3 -> 4' }
       }
   ]'''
-  id = request.args.get("id")
+
+  # if request.args.get("id") == "dummy":
+  #   return dummy_data
+  
+  id = int(request.args.get("id"))
 
   try:
     graph_document = graph_collection.find_one({"_id" : id})

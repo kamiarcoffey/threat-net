@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SaveModal from './SaveModal';
+import LoadModal from "./LoadMotal";
 
 class LoadButton extends Component {
     state = {
@@ -44,17 +45,15 @@ class LoadButton extends Component {
     render() {
         return (
             <main>
-                <button type="button" onClick={this.showModal}>
+                <button id="graph-load-button" type="button" onClick={this.showModal}>
                     Load
                 </button>
-                <SaveModal onClose={this.hideModal} show={this.state.show}>
+                <LoadModal onClose={this.hideModal} show={this.state.show}>
                     Add loaded graph list here<br></br>
                     <label>Graph ID</label>
 					<input type="text" id="graphid" value={this.state.graphId} onChange={(e) => this.handleIdOnChange(e)}></input>
-                    <button type="button" onClick={this.loadGraph}>
-                    Load Graph
-                    </button>
-                </SaveModal>
+                    <button id="modal-load-button" type="button" onClick={this.loadGraph}>Load Graph</button>
+                </LoadModal>
             </main>
         )
     }

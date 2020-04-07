@@ -34,7 +34,7 @@ class Cytoscape extends React.Component {
         }
       }
       ]}
-    elements={this.props.elements} style={ { width: 'calc(100vw - 400px)', height: 'calc(100vh - 50px)' } }/>  }
+    elements={this.props.elements} style={ { width: 'calc(100vw - 370px)', height: 'calc(100vh - 50px)' } }/>  }
 
   
   static getDerivedStateFromProps(props, state) {

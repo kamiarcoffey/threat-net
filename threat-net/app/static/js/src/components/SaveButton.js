@@ -60,15 +60,13 @@ class SaveButton extends Component {
 	render() {
 		return (
 			<main>
-				<button type="button" onClick={this.showModal}>
+				<button id="graph-save-button" type="button" onClick={this.showModal}>
 					Save
                 </button>
 				<SaveModal onClose={this.hideModal} show={this.state.show}>
 					<label>Graph Name</label>
 					<input type="text" id="graphname" value={this.state.graphName} onChange={(e) => this.handleNameOnChange(e)}></input>
-                    <button type="button" onClick={this.saveGraph}>
-						Save Graph
-                    </button>
+                    <button id="modal-save-button" type="button" onClick={this.saveGraph}>Save Graph</button>
 				</SaveModal>
 			</main>
 		)

@@ -3,9 +3,15 @@ import ReactDOM from 'react-dom';
 import CytoApp from './src/components/CytoApp';
 import 'normalize.css/normalize.css';
 import './src/styles/styles.scss';
+import LoadButton from "./src/components/LoadButton";
+import SaveButton from "./src/components/SaveButton";
+import Cytoscape from "./src/components/Cytoscape";
 
 // ReactDOM.render(<SaveButton/>, document.getElementById('save-graph'))
 ReactDOM.render(<CytoApp/>, document.getElementById('reactEntry'));
+
+
+// ReactDOM.render(<Cytoscape/>, document.getElementById('reactEntry'));
 
 // window.addEventListener('DOMContentLoaded', function () {
 //   const exampleProps = {

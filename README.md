@@ -43,6 +43,31 @@ To use Webpack's automatic js reloading with Babel:
 cd threat-net/app/static
 webpack --watch
 ```
+
+#### Connecting to a Local MongoDB Instance
+First, install the appropriate [MongoDB Community Server](https://www.mongodb.com/download-center/community?tck=docs_server). The code block below is copied from their website when I tried to install it, but might've changed since then.
+```bash
+wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+```
+To start the mongo service:
+```bash
+sudo systemctl start mongod
+sudo systemctl status mongod
+```
+Then, create the directory where the db will be stored:
+```bash
+sudo mkdir -p /data/db
+```
+If you want to see the current contents of the graph db:
+```bash
+mongo
+use graph_db
+db.graph_collection.find().pretty()
+```
+
 ### Running on Windows
 ```bash
 cd threat-net
@@ -82,7 +107,7 @@ To use Webpack's automatic js reloading with Babel:
 cd threat-net\app\static
 webpack --watch
 ```
-#### Connecting to a local MongoDB instance
+#### Connecting to a local MongoDB Instance
 First, install the appropriate [MongoDB Community Server](https://www.mongodb.com/download-center/community?tck=docs_server) 
 You do not need to install it as a service. 
 Create a folder to store the DB data

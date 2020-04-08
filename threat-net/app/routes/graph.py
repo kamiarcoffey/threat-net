@@ -4,6 +4,7 @@ from flask import (
 
 from app.models.DocumentDB import *
 
+
 from werkzeug.datastructures import ImmutableMultiDict
 
 import json
@@ -11,7 +12,9 @@ from pymongo import MongoClient
 
 #TODO: add logic for when the DBs are on AWS instead of local, configure MongoClient appropriately
 #see https://docs.aws.amazon.com/documentdb/latest/developerguide/connect_programmatically.html
-client = MongoClient(serverSelectionTimeoutMS = 500) #defaults to localhost:27017, which are the mongoDB defaults 
+
+# gets the database config from app.models.DocumentDB
+client = graph_db
 
 graph_db = client.graph_db #creates db if it doesn't exist already
 graph_collection = graph_db.graph_collection #creates collection if it doesn't exist already

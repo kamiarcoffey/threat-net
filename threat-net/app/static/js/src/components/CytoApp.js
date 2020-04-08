@@ -3,6 +3,7 @@ import React from 'react'
 import Cytoscape from './Cytoscape'
 import SaveButton from './SaveButton'
 import LoadButton from './LoadButton'
+import SearchBar from './SearchBar'
 
 class CytoApp extends React.Component {
   state = {
@@ -22,6 +23,9 @@ class CytoApp extends React.Component {
   render() {
     return (
       <main>
+        <div id="search-bar-container">
+          <SearchBar />
+        </div>
         <div id="graph-button-container">
           {/*Filler button to add a new graph. This will become a React component later.*/}
           <button id="graph-new-button" type="button" >New</button>

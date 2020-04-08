@@ -1,16 +1,14 @@
 {% extends "base.html" %}
 
  {% block head %}
-   {{ super() }}
-   <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.0/d3.min.js"></script>
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  {{ super() }}
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.0/d3.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <script src="{{url_for('static', filename='node_modules/react/umd/react.development.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/react-dom/umd/react-dom.development.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/cytoscape/dist/cytoscape.min.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/prop-types/prop-types.js')}}"></script>
   <script src="{{url_for('static', filename='node_modules/react-cytoscapejs/dist/react-cytoscape.js')}}"></script>
-
-
   <style>
     body {
       font: 14pt helvetica neue, helvetica, sans-serif;
@@ -28,68 +26,55 @@
       height: 400px;
       margin-top: 16px;
     }
-  </style>
+  </style> -->
 
  {% endblock %} <!-- endblock head -->
  
  {% block app_content %}
-  <h1>react-cytoscapejs demo</h1>
 
-  <div id="root"></div>
+ <body>
+  <!-- <h1>react-cytoscapejs demo</h1>
+
+  <div id="graph"></div>
   <textarea id="props"></textarea>
-  <button id="update">Render</button>
+  <button id="update">Render</button> -->
 
-  <script>
-    window.addEventListener('DOMContentLoaded', function () {
-      const exampleProps = {
-        id: 'cy',
-        className: 'foo bar',
-        style: {
-          'border': '1px solid #ccc',
-          'width': '400px',
-          'height': '400px'
-        },
-        global: 'cy',
-        elements: [
-          { data: { id: 'a', label: 'apple' }, position: { x: 0, y: 0 } },
-          { data: { id: 'b', label: 'banana' }, position: { x: 100, y: 0 } },
-          { data: { id: 'c', label: 'cherry' }, position: { x: 200, y: 0 } }
-        ],
-        layout: {
-          name: 'preset'
-        }
-      };
+  <!-- Container for entire page to make use of the flexbox properties -->
+    <div id="page-container">
+      <div id="save-graph"></div>
+      <!-- Top navigation bar -->
+      <div id="nav-bar">
+        <div id="logo-container"><h1 id="logo-text">ThreatNet</h1></div>
+      </div>
 
-      class TestComponent extends React.Component {
-        constructor(props) {
-          super(props);
+      <!-- Container for the side pane and graph pane, so they can be arranged horizontally via flexboxes -->
+      <div id="content-container">
 
-          props.setStateRef(this.setState.bind(this));
+        <div id="side-pane">
+          <div id="add-node-menu">
+            <h2 class="sidebar-title">Add Node</h2>
+            <hr class="sidebar-divider">
+            <!-- Filler div, where actual stuff will go later -->
+            <div style="height: 150px;"></div>
 
-          this.state = exampleProps;
-        }
+            <h2 class="sidebar-title">Node Details</h2>
+            <hr class="sidebar-divider">
+            <!-- Filler div, where actual stuff will go later -->
+            <div style="height: 150px;"></div>
+          </div>
+        </div>
 
-        render() {
-          return React.createElement(ReactCytoscape, this.state);
-        }
-      }
+        <div id="graph-pane">
+          <!-- This is the Cytoscape graph -->
+          <div id="reactEntry"></div>
+        </div>
 
-      const textBox = document.getElementById('props');
-      const btn = document.getElementById('update');
+      </div>
 
-      btn.addEventListener('click', () => {
-        update(JSON.parse(textBox.value));
-      });
 
-      let update;
+    </div>
 
-      ReactDOM.render(
-        React.createElement(TestComponent, { setStateRef: ref => update = ref }),
-        document.getElementById('root')
-      );
+  <script type="text/javascript" src="{{url_for('static', filename='bundle.js')}}"></script>
 
-      textBox.value = JSON.stringify(exampleProps, null, 2);
-    });
-  </script>
- 
+ </body>
  {% endblock %}

@@ -1,0 +1,12 @@
+.CytoContainer{
+    display: flex;
+    justify-content: space-evenly;
+    flex: 1 1 auto;
+    z-index: 0;
+    //height: calc(100vh - 50px);
+}
+
+.CytoscapeGraph{
+    z-index: 0;
+    //border: 4px solid black;
+}

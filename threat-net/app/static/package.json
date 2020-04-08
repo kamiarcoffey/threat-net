@@ -2,18 +2,43 @@
   "name": "threat-net",
   "version": "1.0.0",
   "dependencies": {
-  	"cytoscape": "^3.14.1",
-  	"react": "^16.13.1",
-  	"react-dom": "^16.13.1",
-  	"react-cytoscapejs": "^1.2.1" 
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/runtime": "^7.9.2",
+    "cytoscape": "^3.14.1",
+    "react": "^16.13.1",
+    "react-cytoscapejs": "^1.2.1",
+    "react-dom": "^16.13.1",
+    "save-dev": "0.0.1-security"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@fortawesome/react-fontawesome": "^0.1.8",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-class-properties": "^1.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "css-loader": "^3.4.2",
+    "file-loader": "^6.0.0",
+    "live-server": "^1.2.1",
+    "node-sass": "^4.13.1",
+    "normalize.css": "7.0.0",
+    "sass-loader": "6.0.6",
+    "style-loader": "^1.1.3",
+    "validator": "8.0.0",
+    "webpack": "^1.12.12"
   },
   "description": "ioc graphing utility",
   "repository": {
-  	"type": "git",
-  	"url": "https://github.com/kamiarcoffey/threat-net/"
+    "type": "git",
+    "url": "https://github.com/kamiarcoffey/threat-net/"
   },
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
+    "start": "python app.py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

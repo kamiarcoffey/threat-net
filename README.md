@@ -133,8 +133,8 @@ Number 3 is my personal choice for this project, and I've embedded it in an ifra
 IMPORTANT: Before attempting to run on AWS, follow the instructions for running locally and ensure it works. This will get all the dependencies needed for the program.
 
 The current configuration is ready to be deployed on AWS elastic beanstalk. Follow these steps to deploy on AWS:
-- In threat-net/Dockerfile, uncomment the 2 lines under the "# For AWS Docker configuration", and comment out the line under "# For Local Docker Configuration"
-- In app/models/DocumentDB.py, comment out the graph_db declaration for a local database and uncomment the graph_db declaration for the DocumentDB
+- In `threat-net/Dockerfile`, uncomment the 2 lines under the "# For AWS Docker configuration", and comment out the line under "# For Local Docker Configuration"
+- In `app/models/DocumentDB.py`, comment out the graph_db declaration for a local database and uncomment the graph_db declaration for the DocumentDB
  - If this is a new deployment with a new Documentdb, change the graph_db declaration to be for the desired database.
 	- The argument needed for the MongoClient constructor can be found by going to your DocumentDB cluster page, under "Connectivity and security", under "Connect to this cluster with an application".
 

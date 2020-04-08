@@ -4,6 +4,8 @@ import Cytoscape from './Cytoscape'
 import SaveButton from './SaveButton'
 import LoadButton from './LoadButton'
 import SearchBar from './SearchBar'
+import NodeDetailsPane from './NodeDetailsPane'
+
 
 class CytoApp extends React.Component {
   state = {
@@ -30,6 +32,7 @@ class CytoApp extends React.Component {
           {/*Filler button to add a new graph. This will become a React component later.*/}
           <button id="graph-new-button" type="button" >New</button>
           <SaveButton cyData={this.state.cyData} />
+          <NodeDetailsPane cyData={this.state.cyData} />
           <LoadButton elements={this.state.elements} setData={this.setData} />
         </div>
         <Cytoscape elements={this.state.elements} setCyData={this.setCyData} />
@@ -41,3 +44,6 @@ class CytoApp extends React.Component {
 
 
 export default CytoApp;
+
+
+

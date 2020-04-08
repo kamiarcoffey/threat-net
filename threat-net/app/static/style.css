@@ -79,6 +79,32 @@
  box-shadow: inset 15px 15px 12px 0px rgba(59,59,59,0.12);
 }
 
+/*search bar container to position them in the nav bar*/
+#search-bar-container {
+    position: fixed;
+    top: 0px;
+    left: 30%;
+    display: inline-flex;
+}
+
+#search-bar{
+    margin: auto;
+    width: 33vw;
+    height: 50px;
+    border: 3px solid black;
+    padding: 10px;
+}
+
+#search-button{
+    position: absolute;
+    top: 0px;
+    height: 50px;
+    border: 0px;
+    background-color: grey;
+    color: aliceblue;
+    width: 70px;
+}
+
 /*Container for the save and load graph buttons to position them in the nav bar*/
 #graph-button-container {
  position: absolute;
@@ -121,7 +147,7 @@
  width: 70px;
 }
 
-#graph-load-button:hover, #graph-save-button:hover, #graph-new-button:hover {
+#graph-load-button:hover, #graph-save-button:hover, #graph-new-button:hover, #search-button:hover {
  box-shadow: inset 0px 0px 44px -15px rgba(0,0,0,0.75);
 }
 

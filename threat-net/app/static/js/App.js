@@ -10,8 +10,6 @@ import NodeDetailsPane from './src/components/NodeDetailsPane';
 
 // ReactDOM.render(<SaveButton/>, document.getElementById('save-graph'))
 ReactDOM.render(<CytoApp/>, document.getElementById('reactEntry'));
-ReactDOM.render(<NodeDetailsPane/>, document.getElementById('node-details'));
-
 
 // ReactDOM.render(<Cytoscape/>, document.getElementById('reactEntry'));
 

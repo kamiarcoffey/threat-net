@@ -49,7 +49,7 @@ class Cytoscape extends React.Component {
   
   componentDidUpdate(prevProps, prevState) {
     if(prevState.elements !== this.state.elements) {
-      this.cy.removeData();
+      this.cy.elements().remove();
       this.cy.add(this.state.elements);
       this.setCyData(this.cy.elements().jsons());
     }

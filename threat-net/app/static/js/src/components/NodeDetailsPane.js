@@ -47,7 +47,7 @@ class NodeDetailsPane extends Component {
     render() {
 		return (
 			<main>
-				<button id="graph-new-button" type="button" onClick={this.showModal}>
+				<button id="node-details-button" type="button" onClick={this.showModal}>
 					Details
                 </button>
 				<NodeModal onClose={this.hideModal} show={this.state.show}>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import SaveModal from './SaveModal';
-import LoadModal from "./LoadMotal";
+import LoadModal from "./LoadModal";
 
 class LoadButton extends Component {
     state = {
@@ -21,9 +20,6 @@ class LoadButton extends Component {
     loadGraph = () => {
         $.ajax({
             type : "GET",
-
-            //hard coded id for now
-            //TODO: generate unique graph id
             url : `/graph/loadGraph?id=${this.state.graphId}`, 
             context: this,
             success: function (data) {

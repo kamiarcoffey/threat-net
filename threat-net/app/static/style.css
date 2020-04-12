@@ -50,6 +50,7 @@
  background-color: #cfc4c2;
  display: flex;
  height: calc(100vh - 50px);
+ width: 350px;
  flex: 0 0 350px;
  margin: 0px;
  padding: 0px;

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+
 import SaveModal from './SaveModal';
 
 class SaveButton extends Component {
@@ -35,17 +37,18 @@ class SaveButton extends Component {
 		var json_data = JSON.stringify(cyData);
 		$.ajax({
 			type: "POST",
-
-			//hard coded id and name for now
-			//TODO: generate unique graph id and prompt user for name when graph is saved
 			url: `/graph/saveGraph?name=${this.state.graphName}`,
 			dataType: "json",
 			data: { json_data },
-			success: function (data) {
-				console.log(data);
+			context: this,
+			success: function (response) {
+				toast.success(response.Message)
 				this.setState({
 					show: false
 				});
+			},
+			error: function (response) {
+				toast.error(`Unable to save graph. Error: ${response}`)
 			}
 		});
 	}

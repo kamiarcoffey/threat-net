@@ -1,5 +1,7 @@
 
 import React from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import Cytoscape from './Cytoscape'
 import SaveButton from './SaveButton'
@@ -21,7 +23,6 @@ class CytoApp extends React.Component {
 
   setData = data => {
     this.setState({ elements: eval(data) });
-    // console.log(this.state.elements)
   }
 
   render() {
@@ -36,7 +37,20 @@ class CytoApp extends React.Component {
           <NodeDetailsPane cyData={this.state.cyData} />
           <LoadButton elements={this.state.elements} setData={this.setData} />
         </div>
-        <Cytoscape elements={this.state.elements} setCyData={this.setCyData} />
+        <div id="side-pane">
+          <div id="add-node-menu">
+            <h2 className="sidebar-title">Add Node</h2>
+            <hr className="sidebar-divider"></hr>
+            <div style={{height: "150px"}}></div>
+            <h2 className="sidebar-title">Node Details</h2>
+            <hr className="sidebar-divider"></hr>
+            <div style={{height: "150px"}}></div>
+          </div>
+        </div>
+        <div id="graph-pane">
+          <Cytoscape elements={this.state.elements} setCyData={this.setCyData} />
+        </div>
+        <ToastContainer autoClose={4000} />
       </main>
     )
   };

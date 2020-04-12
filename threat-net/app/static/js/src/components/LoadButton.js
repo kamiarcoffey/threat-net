@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+
 import LoadModal from "./LoadModal";
 
 class LoadButton extends Component {
@@ -25,8 +27,12 @@ class LoadButton extends Component {
             success: function (data) {
                 this.setData(data);
                 this.hideModal();
-                }
-            }
+                toast.success(`Graph with ID ${this.state.graphId} successfully loaded.`);
+                },
+            error: function(response) {
+                toast.error(`Unable to load graph. Error: ${response}`)
+                },
+            },
         );
     }
 

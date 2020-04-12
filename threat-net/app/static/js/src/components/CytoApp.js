@@ -37,16 +37,6 @@ class CytoApp extends React.Component {
           <NodeDetailsPane cyData={this.state.cyData} />
           <LoadButton elements={this.state.elements} setData={this.setData} />
         </div>
-        {/* <div id="side-pane">
-          <div id="add-node-menu">
-            <h2 className="sidebar-title">Add Node</h2>
-            <hr className="sidebar-divider"></hr>
-            <div style={{height: "150px"}}></div>
-            <h2 className="sidebar-title">Node Details</h2>
-            <hr className="sidebar-divider"></hr>
-            <div style={{height: "150px"}}></div>
-          </div>
-        </div> */}
         <div id="graph-pane">
           <Cytoscape elements={this.state.elements} setCyData={this.setCyData} />
         </div>

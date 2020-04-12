@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
 
 class NewButton extends Component {
 
     clearGraph = () => {
+        toast.success('New graph successfully created');
         this.props.setData([]);
     }
 

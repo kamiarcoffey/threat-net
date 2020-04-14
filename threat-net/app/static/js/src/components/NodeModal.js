@@ -7,8 +7,8 @@ export default class SaveModal extends Component {
         }
         return (
         <div id="node-modal">
-            <button class="modal-close" onClick={this.props.onClose}>X</button>
-            <h3 class="modal-title">Node Details</h3>
+            <button className="modal-close" onClick={this.props.onClose}>X</button>
+            <h3 className="modal-title">Node Details</h3>
             <div>{this.props.children}</div>
         </div>
         );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import SaveModal from './SaveModal';
-import LoadModal from "./LoadMotal";
+import { toast } from 'react-toastify';
+
+import LoadModal from "./LoadModal";
 
 class LoadButton extends Component {
     state = {
@@ -21,16 +22,17 @@ class LoadButton extends Component {
     loadGraph = () => {
         $.ajax({
             type : "GET",
-
-            //hard coded id for now
-            //TODO: generate unique graph id
             url : `/graph/loadGraph?id=${this.state.graphId}`, 
             context: this,
             success: function (data) {
                 this.setData(data);
                 this.hideModal();
-                }
-            }
+                toast.success(`Graph with ID ${this.state.graphId} successfully loaded.`);
+                },
+            error: function(response) {
+                toast.error(`Unable to load graph. Error: ${response}`)
+                },
+            },
         );
     }
 

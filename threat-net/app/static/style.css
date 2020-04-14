@@ -50,6 +50,7 @@
  background-color: #cfc4c2;
  display: flex;
  height: calc(100vh - 50px);
+ width: 350px;
  flex: 0 0 350px;
  margin: 0px;
  padding: 0px;
@@ -128,7 +129,7 @@
 #node-details-button {
     position: absolute;
     top: 0px;
-    right: 70px;
+    right: 210px;
     height: 50px;
     border: 0px;
     background-color: #0788a8;

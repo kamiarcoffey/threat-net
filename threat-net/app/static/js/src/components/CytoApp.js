@@ -1,9 +1,13 @@
 
 import React from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import Cytoscape from './Cytoscape'
 import SaveButton from './SaveButton'
 import LoadButton from './LoadButton'
 import SearchBar from './SearchBar'
+import NewButton from './NewButton'
 import NodeDetailsPane from './NodeDetailsPane'
 
 
@@ -19,7 +23,6 @@ class CytoApp extends React.Component {
 
   setData = data => {
     this.setState({ elements: eval(data) });
-    console.log(this.state.elements)
   }
 
   render() {
@@ -29,13 +32,15 @@ class CytoApp extends React.Component {
           <SearchBar />
         </div>
         <div id="graph-button-container">
-          {/*Filler button to add a new graph. This will become a React component later.*/}
-          <button id="graph-new-button" type="button" >New</button>
+          <NewButton setData={this.setData}/>
           <SaveButton cyData={this.state.cyData} />
           <NodeDetailsPane cyData={this.state.cyData} />
           <LoadButton elements={this.state.elements} setData={this.setData} />
         </div>
-        <Cytoscape elements={this.state.elements} setCyData={this.setCyData} />
+        <div id="graph-pane">
+          <Cytoscape elements={this.state.elements} setCyData={this.setCyData} />
+        </div>
+        <ToastContainer autoClose={4000} pauseOnFocusLoss={false}/>
       </main>
     )
   };

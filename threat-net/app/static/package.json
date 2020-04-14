@@ -10,6 +10,7 @@
     "react": "^16.13.1",
     "react-cytoscapejs": "^1.2.1",
     "react-dom": "^16.13.1",
+    "react-toastify": "^5.5.0",
     "save-dev": "0.0.1-security"
   },
   "devDependencies": {

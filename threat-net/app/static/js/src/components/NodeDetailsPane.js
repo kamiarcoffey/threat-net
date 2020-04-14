@@ -27,6 +27,13 @@ class NodeDetailsPane extends Component {
 		this.setState({
 			graphName: e.target.value
 		});
+    }
+    
+    checkData = () => {
+		const cyData = this.state.cyData;
+		console.log(cyData);
+		var json_data = JSON.stringify(cyData);
+		console.log(json_data);
 	}
 
 	showModal = () => {
@@ -40,11 +47,11 @@ class NodeDetailsPane extends Component {
     render() {
 		return (
 			<main>
-				<button id="graph-new-button" type="button" onClick={this.showModal}>
+				<button id="node-details-button" type="button" onClick={this.showModal}>
 					Details
                 </button>
 				<NodeModal onClose={this.hideModal} show={this.state.show}>
-					<label>Graph Name</label>
+					<label>{JSON.stringify(this.state.cyData)}</label>
 				</NodeModal>
 			</main>
 		)

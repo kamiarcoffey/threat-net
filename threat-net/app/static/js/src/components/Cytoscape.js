@@ -1,7 +1,10 @@
 import React from 'react'
-import CytoscapeComponent from 'react-cytoscapejs';
+import CytoscapeComponent from 'react-cytoscapejs'
+import { toast } from 'react-toastify'
 
 class Cytoscape extends React.Component {
+  prevent = false
+  timer = 0
   cy = {}
   state = {
     elements: [],
@@ -49,7 +52,7 @@ class Cytoscape extends React.Component {
   
   componentDidUpdate(prevProps, prevState) {
     if(prevState.elements !== this.state.elements) {
-      this.cy.removeData();
+      this.cy.elements().remove();
       this.cy.add(this.state.elements);
       this.setCyData(this.cy.elements().jsons());
     }
@@ -59,17 +62,38 @@ class Cytoscape extends React.Component {
     this.props.setCyData(data);
   }
 
+  doubleClickAction = () => {
+    var json_data = this.cy.$(':selected').json();
+    console.log('Expanding Node', json_data);
+    $.ajax({
+      type : "POST",
+      url : `/graph/expandNode`,
+      dataType: "json",
+			data: { json_data },
+      context: this,
+      success: function (data) {
+          this.cy.add(data);
+          toast.success(`Node Successfully Expanded`);
+          },
+      error: function(response) {
+          toast.error(`Unable to expand node. Error: ${response}`)
+          },
+      },
+    );
+
+  }
+
   interactWithGraph = () => {
     this.setCyData(this.cy.elements().jsons());
   }
-  
+ 
   constructor(props){
     super(props);
   }
 
   render(){
     return (
-      <div className = "CytoContainer" onClick={this.interactWithGraph}>
+      <div className = "CytoContainer" onClick={this.interactWithGraph} onDoubleClick={this.doubleClickAction}>
           {this.state.cyto}
       </div>
     )

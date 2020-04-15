@@ -51,7 +51,7 @@ class NodeDetailsPane extends Component {
 					Details
                 </button>
 				<NodeModal onClose={this.hideModal} show={this.state.show}>
-					<label>{JSON.stringify(this.state.cyData)}</label>
+					<label>{JSON.stringify(this.state.cyData.filter(node => node.selected).map(node => 'Name:' + node.data.label))}</label>
 				</NodeModal>
 			</main>
 		)

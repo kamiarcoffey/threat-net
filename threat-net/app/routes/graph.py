@@ -19,6 +19,10 @@ client = user_graph_db
 graph_db = client.graph_db #creates db if it doesn't exist already
 graph_collection = graph_db.graph_collection #creates collection if it doesn't exist already
 
+ioc_db = client.ioc_db
+reg_collection = ioc_db.registery_collection
+fs_collection = ioc_db.filesystem_collection
+
 bp = Blueprint('graph', __name__, url_prefix='/graph')
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -26,11 +30,40 @@ def displayGraph():
     return render_template('graph.html')
 
 
+@bp.route('/queryArtifacts/<ioc_type>/<sha>', methods=['GET'])
+def queryArtifacts(ioc_type, sha):
+  if ioc_type == "fs":
+    try:
+      doc = fs_collection.find_one({"sha256" : sha})
+    except:
+      print("NO DB CONNECTED. Query failed.")
+      return {'Message': "Could not query IoCs, no DB connected."}
+  elif ioc_type == "reg":
+    try:
+      doc = reg_collection.find_one({"sha256" : sha})
+    except:
+      print("NO DB CONNECTED. Query failed.")
+      return {'Message': "Could not query IoCs, no DB connected."}
+  else:
+    print("INVALID IOC TYPE PASSED TO graph/queryArtifacts.")
+    return {'Message': "Could not query IoCs, invalid IoC type."}
+
+  if doc is not None:
+    return json.dumps(doc)
+  else:
+    print("NO Artifact WITH SHA {} FOUND.".format(sha))
+    return {'Message': "No artifact with SHA {} found.".format(sha)}
+
+
 @bp.route('/saveGraph', methods=['POST'])
 def saveGraph():
   # Auto generate next id
   id = 0
-  graph_list = graph_collection.find({}, {"_id": 1, "name": 1})
+  try:
+    graph_list = graph_collection.find({}, {"_id": 1, "name": 1})
+  except:
+    print("NO DB CONNECTED. Save failed.")
+    return {'Message' : "Could not save graph, no DB connected."}
   graph_dict = {}
   for graph in graph_list:
     graph_dict[graph["_id"]] = graph["name"]

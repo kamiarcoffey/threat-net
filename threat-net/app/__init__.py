@@ -9,6 +9,7 @@ from app.routes import home
 from app.routes import graph
 from app.routes import userGraphDB
 from app.routes import webrootDB
+from app.init_DB import *
 
 class Config(object):
     JOBS = []

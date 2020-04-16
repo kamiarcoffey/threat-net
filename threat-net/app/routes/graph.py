@@ -19,6 +19,10 @@ client = user_graph_db
 graph_db = client.graph_db #creates db if it doesn't exist already
 graph_collection = graph_db.graph_collection #creates collection if it doesn't exist already
 
+ioc_db = client.ioc_db
+reg_collection = ioc_db.registery_collection
+fs_collection = ioc_db.filesystem_collection
+
 bp = Blueprint('graph', __name__, url_prefix='/graph')
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -30,7 +34,11 @@ def displayGraph():
 def saveGraph():
   # Auto generate next id
   id = 0
-  graph_list = graph_collection.find({}, {"_id": 1, "name": 1})
+  try:
+    graph_list = graph_collection.find({}, {"_id": 1, "name": 1})
+  except:
+    print("NO DB CONNECTED. Save failed.")
+    return {'Message' : "Could not save graph, no DB connected."}
   graph_dict = {}
   for graph in graph_list:
     graph_dict[graph["_id"]] = graph["name"]

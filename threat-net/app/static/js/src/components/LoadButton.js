@@ -39,7 +39,11 @@ class LoadButton extends Component {
 		this.setState({
 			graphId: e.target.value
 		});
-	}
+    }
+    
+    updateGraphID = (id) => {
+        this.setState({graphId: id});
+    }
     
     loadGraph = () => {
         $.ajax({
@@ -84,9 +88,10 @@ class LoadButton extends Component {
                     </span>
                     </h4>
                     <ul style = {styles}>
-                        <li><a onClick = {this.loadGraph} style = {listItemStyles}>exectuable-files-graph-0413</a></li>
-                        <li><a onClick = {this.loadGraph} style = {listItemStyles}>experimengraph-2019</a></li>
-                        <li><a onClick = {this.loadGraph} style = {listItemStyles}>ioc-graph-for2020</a></li>
+                        <li><a onClick = {() => {this.setState({graphId: 0}); this.loadGraph()}} style = {listItemStyles}>Graph 0</a></li>
+                        <li><a onClick = {() => {this.setState({graphId: 1}); this.loadGraph()}} style = {listItemStyles}>Graph 1</a></li>
+                        <li><a onClick = {() => {this.setState({graphId: 2}); this.loadGraph()}} style = {listItemStyles}>Graph 2</a></li>
+                        
                     </ul>
                 </LoadModal>
             </main>
@@ -95,3 +100,6 @@ class LoadButton extends Component {
 }
 
 export default LoadButton;
+
+// <li><a onClick = {this.loadGraph} style = {listItemStyles}>experimengraph-2019</a></li>
+//                         <li><a onClick = {this.loadGraph} style = {listItemStyles}>ioc-graph-for2020</a></li>

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@babel/runtime": "^7.9.2",
     "cytoscape": "^3.14.1",
@@ -21,7 +21,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-class-properties": "^1.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "css-loader": "^3.4.2",
+    "css-loader": "^3.5.2",
     "file-loader": "^6.0.0",
     "live-server": "^1.2.1",
     "node-sass": "^4.13.1",

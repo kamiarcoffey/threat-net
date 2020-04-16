@@ -8,6 +8,7 @@ import SaveButton from "./src/components/SaveButton";
 import Cytoscape from "./src/components/Cytoscape";
 import NodeDetailsPane from './src/components/NodeDetailsPane';
 
+// import 'bootstrap/dist/css/bootstrap.min.css';
 // ReactDOM.render(<SaveButton/>, document.getElementById('save-graph'))
 ReactDOM.render(<CytoApp/>, document.getElementById('reactEntry'));
 

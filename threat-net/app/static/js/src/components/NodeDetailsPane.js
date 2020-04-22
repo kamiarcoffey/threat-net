@@ -46,12 +46,13 @@ class NodeDetailsPane extends Component {
 
     render() {
 		return (
+
 			<main>
 				<button id="node-details-button" type="button" onClick={this.showModal}>
 					Details
                 </button>
 				<NodeModal onClose={this.hideModal} show={this.state.show}>
-					<label>{JSON.stringify(this.state.cyData.filter(node => node.selected).map(node => 'Name:' + node.data.label))}</label>
+					<label>{this.state.cyData.filter(node => node.selected).map(node => JSON.stringify(node.data))}</label>
 				</NodeModal>
 			</main>
 		)

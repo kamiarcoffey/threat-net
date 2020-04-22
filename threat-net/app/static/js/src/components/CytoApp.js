@@ -30,15 +30,15 @@ class CytoApp extends React.Component {
       console.log("Data received by CytoApp:");
       console.log(data);
 
-      //This is where the issue is. The graph is not being updated with what gets pushed here.
+      //Assign label equal to SHA so it is displayed when node is clicked
+      var data_parsed = JSON.parse(data);
+      data_parsed["label"] = data_parsed["sha256"]; 
+
       this.setState({
           elements: [...this.state.elements, {
             group: 'nodes',
-            data: {
-                weight: 75,
-                response: data
-            },
-            position: { x: 200, y: 200 }
+            data: data_parsed,
+            position: { x: Math.floor(Math.random() * 1000), y: Math.floor(Math.random() * 800) }
           }]
       });
 

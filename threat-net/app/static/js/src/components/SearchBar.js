@@ -14,7 +14,7 @@ class SearchBar extends Component {
     }
 
     addElement = data => {
-        this.props.addEmelemt(data);
+        this.props.addElement(data);
     };
 
     handleChange(event) {

@@ -9,6 +9,7 @@ import LoadButton from './LoadButton'
 import SearchBar from './SearchBar'
 import NewButton from './NewButton'
 import NodeDetailsPane from './NodeDetailsPane'
+import {elements} from "react-cytoscapejs/src/defaults";
 
 
 class CytoApp extends React.Component {
@@ -30,13 +31,15 @@ class CytoApp extends React.Component {
       console.log(data);
 
       //This is where the issue is. The graph is not being updated with what gets pushed here.
-      this.state.elements.push({
-        group: 'nodes',
-        data: {
-            weight: 75,
-            response: data
-        },
-        position: { x: 200, y: 200 }
+      this.setState({
+          elements: [...this.state.elements, {
+            group: 'nodes',
+            data: {
+                weight: 75,
+                response: data
+            },
+            position: { x: 200, y: 200 }
+          }]
       });
 
       console.log("elements after addition:");
@@ -47,7 +50,7 @@ class CytoApp extends React.Component {
     return (
       <main>
         <div id="search-bar-container">
-          <SearchBar addEmelemt={this.addElement} />
+          <SearchBar addElement={this.addElement} />
         </div>
         <div id="graph-button-container">
           <NewButton setData={this.setData}/>

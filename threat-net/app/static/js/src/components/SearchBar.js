@@ -7,9 +7,11 @@ class SearchBar extends Component {
     super(props);
     this.state = {
         value: '',
+        collectionToQuery: 'fs',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -18,7 +20,16 @@ class SearchBar extends Component {
     };
 
     handleChange(event) {
-    this.setState({value: event.target.value});
+        this.setState({
+            value: event.target.value,
+        });
+    }
+
+    handleSelectChange(event) {
+        console.log("Change two: ", event.target.value);
+        this.setState({
+            collectionToQuery: event.target.value,
+        });
     }
 
     handleSubmit(event) {
@@ -29,7 +40,7 @@ class SearchBar extends Component {
     querySHA = () => {
         $.ajax({
             type : "GET",
-            url : `/API/IOC/queryDetails/fs/${this.state.value}`,
+            url : `/API/IOC/queryDetails/${this.state.collectionToQuery}/${this.state.value}`,
             context: this,
             success: function (data) {
                 console.log("Response received from ajax call:")
@@ -49,6 +60,10 @@ class SearchBar extends Component {
         return (
             <main>
                 <input id="search-bar" type="text" className="search-bar"  value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
+                <select id="collection-select" defaultValue={this.state.collectionToQuery} onChange={this.handleSelectChange}>
+                    <option value='fs'>filesystem</option>
+                    <option value='reg'>registry</option>
+                </select>
                 <button id="search-button" type="button" onClick={this.querySHA}>Search</button>
             </main>
         )

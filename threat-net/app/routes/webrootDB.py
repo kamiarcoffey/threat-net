@@ -37,6 +37,7 @@ def queryArtifacts(ioc_type, sha):
     return {'Message': "Could not query IoCs, invalid IoC type."}
 
   if doc is not None:
+    print(json.dumps(doc))
     return json.dumps(doc)
   else:
     print("NO Artifact WITH SHA {} FOUND.".format(sha))

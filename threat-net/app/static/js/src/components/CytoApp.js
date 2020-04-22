@@ -15,21 +15,39 @@ class CytoApp extends React.Component {
   state = {
     cyData: [],
     elements: [],
-  }
+  };
 
   setCyData = data => {
     this.setState({ cyData: data })
-  }
+  };
 
   setData = data => {
     this.setState({ elements: eval(data) });
-  }
+  };
+
+  addElement = data => {
+      console.log("Data received by CytoApp:");
+      console.log(data);
+
+      //This is where the issue is. The graph is not being updated with what gets pushed here.
+      this.state.elements.push({
+        group: 'nodes',
+        data: {
+            weight: 75,
+            response: data
+        },
+        position: { x: 200, y: 200 }
+      });
+
+      console.log("elements after addition:");
+      console.log(this.state.elements);
+  };
 
   render() {
     return (
       <main>
         <div id="search-bar-container">
-          <SearchBar />
+          <SearchBar addEmelemt={this.addElement} />
         </div>
         <div id="graph-button-container">
           <NewButton setData={this.setData}/>

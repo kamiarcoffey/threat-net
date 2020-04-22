@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {toast} from "react-toastify";
+import CytoApp from "./CytoApp";
 
 class SearchBar extends Component {
     constructor(props) {
@@ -12,8 +13,8 @@ class SearchBar extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    setData = data => {
-        this.props.setData(data);
+    addElement = data => {
+        this.props.addEmelemt(data);
     };
 
     handleChange(event) {
@@ -31,24 +32,25 @@ class SearchBar extends Component {
             url : `/API/IOC/queryDetails/fs/${this.state.value}`,
             context: this,
             success: function (data) {
-                this.setData(data);
-                toast.success(`Node with SHA ${this.state.value} successfully loaded.`);
+                console.log("Response received from ajax call:")
+                console.log(data);
+                this.addElement(data);
+                toast.success(`Node successfully loaded.`);
                 },
             error: function(response) {
-                toast.error(`Unable to load node with SHA ${this.state.value}. Error: ${response}`)
+                toast.error(`Unable to load node. Error: ${response}`)
                 },
             },
         );
+        this.setState({value: ''});
     };
 
     render() {
         return (
-            <form onSubmit={this.querySHA}>
+            <main>
                 <input id="search-bar" type="text" className="search-bar"  value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
-                <button id="search-button" value="Submit" type="submit" onClick={this.querySHA}>
-                    Search
-                </button>
-            </form>
+                <button id="search-button" type="button" onClick={this.querySHA}>Search</button>
+            </main>
         )
     }
 }

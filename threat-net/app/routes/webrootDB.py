@@ -11,7 +11,7 @@ from werkzeug.datastructures import ImmutableMultiDict
 # create variables for collections in db
 ioc_db = webroot_db.ioc_db
 filesystem_collection = ioc_db.filesystem_collection
-registery_collection = ioc_db.registery_collection
+registry_collection = ioc_db.registery_collection
 
 
 
@@ -52,7 +52,7 @@ def ExpandNodeByKey():
       key_value = request.args.get("key_value")
 
       try:
-            results = json.dumps(list(registery_collection.find({"sha256" : {"$ne" : sha256}, key_type : key_value}, {"sha256" : 1} )))
+            results = json.dumps(list(registry_collection.find({"sha256" : {"$ne" : sha256}, key_type : key_value}, {"sha256" : 1} )))
       except:
             print("Error Querying Database to expand node by key")
 

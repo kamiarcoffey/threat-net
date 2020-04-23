@@ -1,7 +1,7 @@
 from cachetools import TTLCache
 
 import json
-from cacheConfig import * 
+from app.modules.cache.cacheConfig import * 
 from threading import Lock
 
 
@@ -10,15 +10,9 @@ class Cache:
 
 	
 
-	# Initializes a cache object based on a config file
-	def __init__(self):
-		with open('../config.json') as json_data_file:
-			data = json.load(json_data_file)
-		self.cache = TTLCache(data["cache"]["maxItems"], data["cache"]["timeToLive"])
-		self.lock = Lock()
 
 	# Initializes TTL cache based on number of items and time to live 
-	def __init__(self,numItems,timeToLive):
+	def __init__(self,numItems=MAX_ITEMS,timeToLive=TIME_TO_LIVE):
 		self.cache = TTLCache(numItems,timeToLive)
 		self.lock = Lock()
 

@@ -61,7 +61,7 @@ class CytoApp extends React.Component {
         <div id="graph-pane">
           <Cytoscape elements={this.state.elements} setCyData={this.setCyData} />
         </div>
-        <ToastContainer autoClose={4000} pauseOnFocusLoss={false}/>
+        <ToastContainer autoClose={4000} position={"bottom-right"} pauseOnFocusLoss={false}/>
       </main>
     )
   };

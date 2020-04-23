@@ -29,6 +29,7 @@ class LoadButton extends Component {
     state = {
         show: false,
         graphId: 0,
+        graphList: []
     };
 
     setData = data => {
@@ -70,17 +71,40 @@ class LoadButton extends Component {
         this.setState({ show: false });
     };
 
-    
+    loadGraphList = () => {
+        $.ajax({
+            type : "GET",
+            url: '/graph/graphList',
+            context: this,
+            success: function(data){
+                if(this.state.graphList.length == 0){
+                    this.setState({graphList: JSON.parse(data)})
+                }
+            }, 
+            error: function(response){
+                toast.error('Unable to load graph list, Error: ${response}');
+            }
+        });
+    }    
 
     render() {
+        this.loadGraphList()
+        const graphList = this.state.graphList;
+        const entries = Object.entries(graphList);
+
+        //create list of <li> elements, one for each graph
+        var htmlList = []; 
+        for (const [id, name] of entries) {
+            htmlList.push(<li key = {id}><a onClick = {() => {this.setState({graphId: id}, () => this.loadGraph())}} style = {listItemStyles}>{name}</a></li>);
+        }
+        
         return (
             <main>
                 <button id="graph-load-button" type="button" onClick={this.showModal}>
                     Load
                 </button>
                 <LoadModal onClose={this.hideModal} show={this.state.show} >
-                    Add loaded graph list here<br></br>
-                    <label>Graph ID</label>
+                    <label>Enter Graph ID</label>
 					<input type="text" id="graphid" value={this.state.graphId} onChange={(e) => this.handleIdOnChange(e)}></input>
                     <button id="modal-load-button" type="button" onClick={this.loadGraph}>Load Graph</button>
                     <hr style = {hrStyle}></hr>
@@ -88,10 +112,7 @@ class LoadButton extends Component {
                     </span>
                     </h4>
                     <ul style = {styles}>
-                        <li><a onClick = {() => {this.setState({graphId: 0}); this.loadGraph()}} style = {listItemStyles}>Graph 0</a></li>
-                        <li><a onClick = {() => {this.setState({graphId: 1}); this.loadGraph()}} style = {listItemStyles}>Graph 1</a></li>
-                        <li><a onClick = {() => {this.setState({graphId: 2}); this.loadGraph()}} style = {listItemStyles}>Graph 2</a></li>
-                        
+                        {htmlList}
                     </ul>
                 </LoadModal>
             </main>

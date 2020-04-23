@@ -25,18 +25,7 @@
  display: flex;
  justify-content: right;
 }
-/*#save-button {*/
-/* background-color: #075da8;*/
-/* !*padding: 5px;*!*/
-/* flex: 0 0 50px;*/
-/* position: relative;*/
-/*}*/
-/*#load-button {*/
-/* background-color: #c41902;*/
-/* !*padding: 5px;*!*/
-/* flex: 0 0 50px;*/
-/* position: relative;*/
-/*}*/
+
 #logo-container {
  flex: 1 1 200px;
  color: aliceblue;
@@ -140,7 +129,7 @@
     background-color: #0788a8;
     color: aliceblue;
     width: 70px;
-   }
+}
 
 #graph-load-button {
  position: absolute;
@@ -164,7 +153,7 @@
  width: 70px;
 }
 
-#graph-load-button:hover, #graph-save-button:hover, #graph-new-button:hover, #search-button:hover {
+#graph-load-button:hover, #graph-save-button:hover, #graph-new-button:hover, #search-button:hover, #node-details-button:hover {
  box-shadow: inset 0px 0px 44px -15px rgba(0,0,0,0.75);
 }
 
@@ -187,7 +176,7 @@
 }
 
 #node-modal {
-    border: 4px solid #414141;
+    border: 4px solid #0788a8;
    }
 
 .modal-close {

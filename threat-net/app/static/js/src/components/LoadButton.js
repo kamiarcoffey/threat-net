@@ -31,7 +31,7 @@ class LoadButton extends Component {
     state = {
         show: false,
         graphId: 0,
-        
+        graphList: []
     };
 
     setData = data => {
@@ -57,7 +57,7 @@ class LoadButton extends Component {
       }
 
     saveIdArray = () => {
-        if(!(idArray.includes(parseInt(this.state.graphId))) && idArray.length < 11){     // if graph id not in recent memory and cap of 10
+        if(!(idArray.includes(parseInt(this.state.graphId))) && idArray.length < 10){     // if graph id not in recent memory and cap of 10
             idArray.push(parseInt(this.state.graphId));
             localStorage.setItem("graphs", JSON.stringify(idArray));      
     }
@@ -102,7 +102,31 @@ class LoadButton extends Component {
       }
     
 
+    loadGraphList = () => {
+        $.ajax({
+            type : "GET",
+            url: '/graph/graphList',
+            context: this,
+            success: function(data){
+                if(Object.keys(this.state.graphList).length != Object.keys(JSON.parse(data)).length){
+                    this.setState({graphList: JSON.parse(data)})
+                }
+            }, 
+            error: function(response){
+                toast.error('Unable to load graph list, Error: ${response}');
+            }
+        });
+    }    
+
     render() {
+        this.loadGraphList()
+        var graphList = this.state.graphList;
+
+        if (localStorage.hasOwnProperty('graphs')){
+            var graphs = JSON.parse(localStorage.getItem("graphs"));
+            idArray = graphs;
+        }
+
         return (
             <main>
                 <button id="graph-load-button" type="button" onClick={this.showModal}>
@@ -120,7 +144,7 @@ class LoadButton extends Component {
                     <ul style = {styles}>
                         {Array.isArray(idArray) && idArray.map((thisId) => {
                             return (
-                                <li key = {thisId}><a onClick = {() => {this.setState({graphId: thisId}); this.loadGraph(thisId); }} style = {listItemStyles}>Graph {thisId}</a></li>
+                                <li key = {thisId}><a onClick = {() => {this.setState({graphId: thisId}, () => this.loadGraph(thisId))}} style = {listItemStyles}>{graphList[thisId]}</a></li>
                             )
                         })}
                        

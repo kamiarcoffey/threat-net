@@ -65,7 +65,7 @@ def saveGraph():
     print("NO DB CONNECTED. Save failed.")
     return {'Message' : "Could not save graph, no DB connected."}
 
-  return {'Message' : 'Sucessfully saved graph with name "{}" and ID {}'.format(name, id)}
+  return {'Message' : 'Sucessfully saved graph with name "{}" and ID {}'.format(name, id), 'id': id}
 
 
 @bp.route('/graphList', methods=['GET'])

@@ -1,6 +1,6 @@
 import unittest
 import time
-from cache import *
+from app.modules.cache.cache import *
 
 class TestCache(unittest.TestCase):
 	def setUp(self):

@@ -25,47 +25,13 @@
  display: flex;
  justify-content: right;
 }
-/*#save-button {*/
-/* background-color: #075da8;*/
-/* !*padding: 5px;*!*/
-/* flex: 0 0 50px;*/
-/* position: relative;*/
-/*}*/
-/*#load-button {*/
-/* background-color: #c41902;*/
-/* !*padding: 5px;*!*/
-/* flex: 0 0 50px;*/
-/* position: relative;*/
-/*}*/
+
 #logo-container {
  flex: 1 1 200px;
  color: aliceblue;
 }
 #logo-text {
  margin: 5px 5px 5px 10px;
-}
-
-/*Side pane*/
-#side-pane {
- background-color: #cfc4c2;
- display: flex;
- height: calc(100vh - 50px);
- width: 350px;
- flex: 0 0 350px;
- margin: 0px;
- padding: 0px;
-}
-
-.sidebar-divider {
- width: 310px;
- margin: 5px 20px 0px 20px;
- border: 1px solid #424242;
-}
-.sidebar-title {
- color: #252352;
- font-size: 24px;
- text-align: left;
- margin: 10px 0px 0px 20px;
 }
 
 /*Graph pane*/
@@ -92,7 +58,7 @@
     margin: auto;
     width: 33vw;
     height: 50px;
-    border: 3px solid black;
+    border: none;
     padding: 10px;
 }
 
@@ -109,6 +75,7 @@
 #collection-select {
     height: 50px;
     width: 120px;
+    border: none;
 }
 
 /*Container for the save and load graph buttons to position them in the nav bar*/
@@ -140,7 +107,7 @@
     background-color: #0788a8;
     color: aliceblue;
     width: 70px;
-   }
+}
 
 #graph-load-button {
  position: absolute;
@@ -164,7 +131,7 @@
  width: 70px;
 }
 
-#graph-load-button:hover, #graph-save-button:hover, #graph-new-button:hover, #search-button:hover {
+#graph-load-button:hover, #graph-save-button:hover, #graph-new-button:hover, #search-button:hover, #node-details-button:hover {
  box-shadow: inset 0px 0px 44px -15px rgba(0,0,0,0.75);
 }
 
@@ -187,8 +154,9 @@
 }
 
 #node-modal {
-    border: 4px solid #414141;
-   }
+    border: 4px solid #0788a8;
+    width: 400px;
+}
 
 .modal-close {
  color: #252352;

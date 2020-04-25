@@ -72,30 +72,28 @@ def ExpandNodeByKey():
       if(cache_val[0]):
         print("Expand Node By Key Cache hit")
         return cache_val[1]
-      if False:
-        pass
-      else:
-        print('Expand Node By Key Cache Miss')
-        if not isinstance(key_value_list, list): #if key_value is singular
+
+      print('Expand Node By Key Cache Miss')
+      if not isinstance(key_value_list, list): #if key_value is singular
+        try:
+          results = json.dumps(list(registry_collection.find({"sha256" : {"$ne" : sha256}, key_type : key_value}, {"sha256" : 1} )))
+        except:
+          print("Error Querying Database to expand node by key")
+      else: #key_value has 2+ values, must check all
+        results = []
+        sha_list = [sha256]
+        for val in key_value_list:
           try:
-            results = json.dumps(list(registry_collection.find({"sha256" : {"$ne" : sha256}, key_type : key_value}, {"sha256" : 1} )))
+            ret = list(registry_collection.find({"sha256" : {"$nin" : sha_list}, key_type : {"$in": [val]}}, {"sha256" : 1}))
+            if(len(ret) > 0):
+              print("Match found! {}:{}".format(key_type, val))
+              #if sha not already encountered, add it to the list so it will be filtered out next query
+              sha_list.extend([match['sha256'] for match in ret if match['sha256'] not in sha_list]) 
+            results.extend(ret)
           except:
             print("Error Querying Database to expand node by key")
-        else: #key_value has 2+ values, must check all
-          results = []
-          sha_list = [sha256]
-          for val in key_value_list:
-            try:
-              ret = list(registry_collection.find({"sha256" : {"$nin" : sha_list}, key_type : {"$in": [val]}}, {"sha256" : 1}))
-              if(len(ret) > 0):
-                print("Match found! {}:{}".format(key_type, val))
-                #if sha not already encountered, add it to the list so it will be filtered out next query
-                sha_list.extend([match['sha256'] for match in ret if match['sha256'] not in sha_list]) 
-              results.extend(ret)
-            except:
-              print("Error Querying Database to expand node by key")
-          
-          results = json.dumps(results)
+        
+        results = json.dumps(results)
           
 
         # add value to cache 

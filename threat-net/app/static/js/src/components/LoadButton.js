@@ -133,7 +133,6 @@ class LoadButton extends Component {
                     Load
                 </button>
                 <LoadModal onClose={this.hideModal} show={this.state.show} >
-                    Add loaded graph list here<br></br>
                     <label>Graph ID</label>
 					<input type="text" id="graphid" value={this.state.graphId} onChange={(e) => this.handleIdOnChange(e)}></input>
                     <button id="modal-load-button" type="button" onClick={() => {this.loadGraph(this.state.graphId); this.saveIdArray()}}>Load Graph</button>
@@ -146,9 +145,7 @@ class LoadButton extends Component {
                             return (
                                 <li key = {thisId}><a onClick = {() => {this.setState({graphId: thisId}, () => this.loadGraph(thisId))}} style = {listItemStyles}>{graphList[thisId]}</a></li>
                             )
-                        })}
-                       
-                        
+                        })}     
                     </ul>
                 </LoadModal>
             </main>

@@ -2,10 +2,11 @@ import React from 'react'
 import CytoscapeComponent from 'react-cytoscapejs'
 import { toast } from 'react-toastify'
 
+import ExpandModal from "./ExpandModal";
+
 class Cytoscape extends React.Component {
-  prevent = false
-  timer = 0
   cy = {}
+
   state = {
     elements: [],
     cyto: <CytoscapeComponent cy={(cy) => {this.cy = cy}} className = "CytoscapeGraph"
@@ -37,14 +38,21 @@ class Cytoscape extends React.Component {
         }
       }
       ]}
-    elements={this.props.elements} style={ { width: '100vw', height: 'calc(100vh - 50px)' } }/>  }
+    elements={this.props.elements} style={ { width: '100vw', height: 'calc(100vh - 50px)' } }/>,
+    show: false,
+    dropdownList: [],
+    selectedKey: "",
+  }
 
   
   static getDerivedStateFromProps(props, state) {
     if (props.elements != state.elements) {
       return {
         elements: props.elements,
-        cyto: state.cyto
+        cyto: state.cyto,
+        show: state.show,
+        dropdownList: state.dropdownList,
+        selectedKey: state.selectedKey,
       };
     }
     return state;
@@ -64,15 +72,41 @@ class Cytoscape extends React.Component {
 
   doubleClickAction = () => {
     var json_data = this.cy.$(':selected').json();
-    console.log('Expanding Node', json_data);
+    const expandList = ['delete_files', 'files', 'read_files', 'write_files'];
+    var dropdownKeys = [];
+    for(var i in expandList) {
+      if(json_data.data[expandList[i]].length > 0) {
+        dropdownKeys.push({value: expandList[i], name: expandList[i]});
+      }
+    }
+    this.setState({ dropdownList: dropdownKeys });
+    this.showModal();
+  }
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
+  updateDropdown = (event) => {
+    this.setState({ selectedKey: event.target.value });
+  }
+
+  expandNode = () => {
+    this.hideModal();
+    var json_data = this.cy.$(':selected').json();
     $.ajax({
-      type : "POST",
-      url : `/graph/expandNode`,
+      type : "GET",
+      url : `/API/IOC/ExpandNodeByKey`,
       dataType: "json",
-			data: { json_data },
+			data: { sha256: json_data.data.sha256, key: this.state.selectedKey },
       context: this,
       success: function (data) {
-          this.cy.add(data);
+          // this.cy.add(data);
+          console.log('Data to be added', data);
           toast.success(`Node Successfully Expanded`);
           },
       error: function(response) {
@@ -80,7 +114,6 @@ class Cytoscape extends React.Component {
           },
       },
     );
-
   }
 
   interactWithGraph = () => {
@@ -93,9 +126,21 @@ class Cytoscape extends React.Component {
 
   render(){
     return (
-      <div className = "CytoContainer" onClick={this.interactWithGraph} onDoubleClick={this.doubleClickAction}>
-          {this.state.cyto}
-      </div>
+      <main>
+        <div className = "CytoContainer" onClick={this.interactWithGraph} onDoubleClick={this.doubleClickAction}>
+            {this.state.cyto}
+        </div>
+        <ExpandModal onClose={this.hideModal} show={this.state.show}>
+          <label>Expand On Key: </label>
+          <select name="expandKey" value={this.state.selectedKey} onChange={this.updateDropdown}>
+            <option value=""></option>
+          {this.state.dropdownList.map((e, key) => {
+              return <option key={key} value={e.value}>{e.name}</option>;
+          })}
+          </select>
+          <button id="modal-load-button" type="button" onClick={this.expandNode}>Expand Node</button>
+        </ExpandModal>
+      </main>
     )
   }
 }
@@ -120,4 +165,4 @@ class Cytoscape extends React.Component {
 // console.log(FindNode('one'));
 //AddNode({ data: { id: 'three', label: 'Node 3' }, position: { x: 250, y: 300 } });
 
-  export default Cytoscape;
+export default Cytoscape;

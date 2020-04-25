@@ -72,11 +72,11 @@ class Cytoscape extends React.Component {
 
   doubleClickAction = () => {
     var json_data = this.cy.$(':selected').json();
-    const expandList = ['delete_files', 'files', 'read_files', 'write_files'];
+    const removeList = ['_id', 'id', 'label', 'sha256'];
     var dropdownKeys = [];
-    for(var i in expandList) {
-      if(json_data.data[expandList[i]].length > 0) {
-        dropdownKeys.push({value: expandList[i], name: expandList[i]});
+    for(const field of Object.keys(json_data.data)){
+      if(!removeList.includes(field)){
+        dropdownKeys.push({value: field, name: field});
       }
     }
     this.setState({ dropdownList: dropdownKeys });
@@ -100,9 +100,8 @@ class Cytoscape extends React.Component {
     var json_data = this.cy.$(':selected').json();
     $.ajax({
       type : "GET",
-      url : `/API/IOC/ExpandNodeByKey`,
+      url : `/API/IOC/ExpandNodeByKey?sha256=${json_data.data.sha256}&key_type=${this.state.selectedKey}&key_value=${encodeURIComponent(JSON.stringify(json_data.data[this.state.selectedKey]))}`,
       dataType: "json",
-			data: { sha256: json_data.data.sha256, key: this.state.selectedKey },
       context: this,
       success: function (data) {
           // this.cy.add(data);

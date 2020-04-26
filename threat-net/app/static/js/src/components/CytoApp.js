@@ -26,24 +26,28 @@ class CytoApp extends React.Component {
     this.setState({ elements: eval(data) });
   };
 
-  addElement = data => {
-      console.log("Data received by CytoApp:");
-      console.log(data);
+  addElement = (data, source) => {
+    // console.log("Data received by CytoApp:");
+    // console.log(data);
 
-      //Assign label equal to SHA so it is displayed when node is clicked
-      var data_parsed = JSON.parse(data);
-      data_parsed["label"] = data_parsed["sha256"]; 
+    //Assign label equal to SHA so it is displayed when node is clicked
+    var data_parsed = JSON.parse(data);
+    data_parsed["label"] = `${source}-${data_parsed["sha256"]}`; 
+    data_parsed["id"] = `${source}-${data_parsed["sha256"]}`;
+    data_parsed["source_collection"] = source;
 
+    if (this.state.cyData.some(e => e.data.id === data_parsed["id"])) {
+      toast.warn('Node with specified SHA and Collection has already been added to this graph.')
+    } else {
       this.setState({
-          elements: [...this.state.elements, {
-            group: 'nodes',
-            data: data_parsed,
-            position: { x: Math.floor(Math.random() * 1000), y: Math.floor(Math.random() * 800) }
-          }]
+        elements: [...this.state.elements, {
+          group: 'nodes',
+          data: data_parsed,
+          position: { x: Math.floor(Math.random() * 1000), y: Math.floor(Math.random() * 800) }
+        }]
       });
-
-      console.log("elements after addition:");
-      console.log(this.state.elements);
+      toast.success(`Node successfully loaded.`);
+    }
   };
 
   render() {
@@ -59,7 +63,7 @@ class CytoApp extends React.Component {
           <LoadButton elements={this.state.elements} setData={this.setData} />
         </div>
         <div id="graph-pane">
-          <Cytoscape elements={this.state.elements} setCyData={this.setCyData} />
+          <Cytoscape elements={this.state.elements} setCyData={this.setCyData} setData={this.setData} />
         </div>
         <ToastContainer autoClose={4000} position={"bottom-right"} pauseOnFocusLoss={false}/>
       </main>
@@ -70,6 +74,3 @@ class CytoApp extends React.Component {
 
 
 export default CytoApp;
-
-
-

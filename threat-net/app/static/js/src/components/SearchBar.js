@@ -15,8 +15,8 @@ class SearchBar extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    addElement = data => {
-        this.props.addElement(data);
+    addElement = (data, source) => {
+        this.props.addElement(data, source);
     };
 
     handleChange(event) {
@@ -43,16 +43,14 @@ class SearchBar extends Component {
             url : `/API/IOC/queryDetails/${this.state.collectionToQuery}/${this.state.value}`,
             context: this,
             success: function (data) {
-                console.log("Response received from ajax call:")
-                console.log(data);
-                this.addElement(data);
-                toast.success(`Node successfully loaded.`);
-                },
+                // console.log("Response received from ajax call:")
+                // console.log(data);
+                this.addElement(data, this.state.collectionToQuery);
+            },
             error: function(response) {
                 toast.error(`Unable to load node. Error: ${response}`)
-                },
             },
-        );
+        });
         this.setState({value: ''});
     };
 

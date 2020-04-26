@@ -91,6 +91,9 @@ def ExpandNodeByKey():
           for val in results:
             val["shared_key"] = key_type
             val["shared_value"] = key_value_list
+          results = json.dumps(results)
+          webroot_db_cache.addToCache(cache_key, results)
+          return results
         except:
           print("Error Querying Database to expand node by key")
       else: #key_value has 2+ values, must check all
@@ -110,10 +113,7 @@ def ExpandNodeByKey():
           except:
             print("Error Querying Database to expand node by key")
         
-        results = json.dumps(results)
-        print("##########", results)
-          
-
         # add value to cache 
+        results = json.dumps(results)
         webroot_db_cache.addToCache(cache_key,results)
         return results

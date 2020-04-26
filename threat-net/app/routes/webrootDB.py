@@ -64,10 +64,21 @@ def ExpandNodeByKey():
       sha256 = request.args.get("sha256")
       key_type = request.args.get("key_type")
       key_value = request.args.get("key_value")
+      collection = request.args.get("collection")
+
       key_value_list = json.loads(key_value)
 
 
-      cache_key = 'ExpandNodeByKey' + key_type + key_value + sha256
+      if collection == "reg":
+        db_collection = registry_collection
+      elif collection == "fs":
+        db_collection = filesystem_collection
+      #add more statements here for additional collections
+      else:
+        print("Error: not a valid collection")
+        return ""
+
+      cache_key = 'ExpandNodeByKey' + key_type + key_value + sha256 + collection
       cache_val = webroot_db_cache.checkCache(cache_key)
       if(cache_val[0]):
         print("Expand Node By Key Cache hit")
@@ -76,7 +87,10 @@ def ExpandNodeByKey():
       print('Expand Node By Key Cache Miss')
       if not isinstance(key_value_list, list): #if key_value is singular
         try:
-          results = json.dumps(list(registry_collection.find({"sha256" : {"$ne" : sha256}, key_type : key_value}, {"sha256" : 1} )))
+          results = list(db_collection.find({"sha256" : {"$ne" : sha256}, key_type : key_value}))
+          for val in results:
+            val["shared_key"] = key_type
+            val["shared_value"] = key_value_list
         except:
           print("Error Querying Database to expand node by key")
       else: #key_value has 2+ values, must check all
@@ -84,9 +98,12 @@ def ExpandNodeByKey():
         sha_list = [sha256]
         for val in key_value_list:
           try:
-            ret = list(registry_collection.find({"sha256" : {"$nin" : sha_list}, key_type : {"$in": [val]}}, {"sha256" : 1}))
+            ret = list(db_collection.find({"sha256" : {"$nin" : sha_list}, key_type : {"$in": [val]}}))
             if(len(ret) > 0):
               print("Match found! {}:{}".format(key_type, val))
+              for match in ret:
+                match["shared_key"] = key_type
+                match["shared_value"] = val
               #if sha not already encountered, add it to the list so it will be filtered out next query
               sha_list.extend([match['sha256'] for match in ret if match['sha256'] not in sha_list]) 
             results.extend(ret)
@@ -94,40 +111,9 @@ def ExpandNodeByKey():
             print("Error Querying Database to expand node by key")
         
         results = json.dumps(results)
+        print("##########", results)
           
 
         # add value to cache 
         webroot_db_cache.addToCache(cache_key,results)
         return results
-
-@bp.route('/ExpandNodeByFile', methods=['GET'])
-def ExpandNodeByFile():
-      results = "Error Querying Database"
-
-      sha256 = request.args.get("sha256")
-      file_type = request.args.get("file_type")
-      file_name = request.args.get("file_name")
-
-      cache_key = 'ExpandNodeByFile' + file_type + file_name + sha256
-      cache_val = webroot_db_cache.checkCache(cache_key)
-      if(cache_val[0]):
-        print("Expand Node By File Cache hit")
-        return cache_val[1]
-        
-      else:
-        print('Expand Node By File Cache Miss')
-
-        try:
-              results = json.dumps(list(filesystem_collection.find({"sha256" : {"$ne" : sha256}, file_type : file_name}, {"sha256" : 1} )))
-        except:
-              print("Error Querying Database to expand node by key")
-
-        # add value to cache 
-        webroot_db_cache.addToCache(cache_key,results)
-        return results
-
-
-# #not sure what this would be for, was in our original plan so i left it here
-# @bp.route('/QueryArtifacts', methods=['GET'])
-# def QueryArtifacts(SHA):
-# 	return 'not implemented'

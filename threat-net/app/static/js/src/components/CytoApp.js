@@ -27,9 +27,6 @@ class CytoApp extends React.Component {
   };
 
   addElement = (data, source) => {
-    // console.log("Data received by CytoApp:");
-    // console.log(data);
-
     //Assign label equal to SHA so it is displayed when node is clicked
     var data_parsed = JSON.parse(data);
     data_parsed["label"] = `${source}-${data_parsed["sha256"]}`; 
@@ -43,7 +40,7 @@ class CytoApp extends React.Component {
         elements: [...this.state.elements, {
           group: 'nodes',
           data: data_parsed,
-          position: { x: Math.floor(Math.random() * 1000), y: Math.floor(Math.random() * 800) }
+          position: { x: Math.floor(Math.random() * 950) + 50, y: Math.floor(Math.random() * 750) + 50 },
         }]
       });
       toast.success(`Node successfully loaded.`);

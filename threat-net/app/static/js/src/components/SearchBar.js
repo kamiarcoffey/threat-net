@@ -26,15 +26,14 @@ class SearchBar extends Component {
     }
 
     handleSelectChange(event) {
-        console.log("Change two: ", event.target.value);
         this.setState({
             collectionToQuery: event.target.value,
         });
     }
 
     handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
+        alert('A name was submitted: ' + this.state.value);
+        event.preventDefault();
     }
 
     querySHA = () => {
@@ -43,8 +42,6 @@ class SearchBar extends Component {
             url : `/API/IOC/queryDetails/${this.state.collectionToQuery}/${this.state.value}`,
             context: this,
             success: function (data) {
-                // console.log("Response received from ajax call:")
-                // console.log(data);
                 this.addElement(data, this.state.collectionToQuery);
             },
             error: function(response) {

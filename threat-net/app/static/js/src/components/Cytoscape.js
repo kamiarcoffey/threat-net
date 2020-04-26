@@ -44,7 +44,6 @@ class Cytoscape extends React.Component {
     selectedKey: "",
   }
 
-  
   static getDerivedStateFromProps(props, state) {
     if (props.elements != state.elements) {
       return {
@@ -111,17 +110,20 @@ class Cytoscape extends React.Component {
         // I apologize for how awful this if-statement is
         if(this.cy.filter(`[sha256 = '${data[i].sha256}']`).connectedEdges().sources().filter(`[sha256 = '${json_data.data.sha256}']`).length > 0 
         || this.cy.filter(`[sha256 = '${data[i].sha256}']`).connectedEdges().targets().filter(`[sha256 = '${json_data.data.sha256}']`).length > 0) {
-            console.log('SHA connection already exists');
+            console.log(`SHA connection already exists between ${data[i].sha256} and ${json_data.data.sha256}.`);
         } else {
           elementsToAdd.push(
             {
               group: 'edges',
               data: {
-                // Add label specifying shared connection here? 
-                label: '',
+                label: data[i].shared_value,
                 id: `${data[i].sha256}-${json_data.data.sha256}-${key_type}`,
                 source: `${source_collection}-${data[i].sha256}`,
-                target: json_data.data.sha256,
+                target: `${source_collection}-${json_data.data.sha256}`,
+                data: {
+                  shared_key: data[i].shared_key,
+                  shared_value: data[i].shared_value
+                }
               }
             }
           );
@@ -130,19 +132,29 @@ class Cytoscape extends React.Component {
         elementsToAdd.push(
           {
             group: 'nodes',
-            data: { ...data[i], label: `${source_collection}-${data[i].sha256}`, id: `${source_collection}-${data[i].sha256}` },
-            position: { x: Math.floor(Math.random() * 1000), y: Math.floor(Math.random() * 800) },
+            data: { 
+              ...data[i],
+              label: `${source_collection}-${data[i].sha256}`,
+              source_collection: source_collection,
+              id: `${source_collection}-${data[i].sha256}`,
+              shared_key: undefined,
+              shared_value: undefined,
+            },
+            position: { x: Math.floor(Math.random() * 950) + 50, y: Math.floor(Math.random() * 750) + 50},
           }
         );
         elementsToAdd.push(
           {
             group: 'edges',
             data: {
-              // Add label specifying shared connection here? 
-              label: '',
+              label: data[i].shared_value,
               id: `${data[i].sha256}-${json_data.data.sha256}-${key_type}`,
               source: `${source_collection}-${data[i].sha256}`,
               target: `${source_collection}-${json_data.data.sha256}`,
+              data: {
+                shared_key: data[i].shared_key,
+                shared_value: data[i].shared_value
+              }
             }
           }
         );
@@ -201,25 +213,5 @@ class Cytoscape extends React.Component {
     )
   }
 }
-  
-
-// const FindNode = (givenId) => {
-//   for (let i = 0; i < this.props.elements.length; i++) {
-//     var element = this.props.elements[i];
-//     if(element.data.id === givenId){
-//       return element;
-//     }
-//   }return false;
-// }  
-
-
-// const AddNode = (object = {}) => {
-//   this.props.elements.push(object);
-// }
-
-
-
-// console.log(FindNode('one'));
-//AddNode({ data: { id: 'three', label: 'Node 3' }, position: { x: 250, y: 300 } });
 
 export default Cytoscape;

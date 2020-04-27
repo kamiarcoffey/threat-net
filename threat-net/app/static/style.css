@@ -115,7 +115,7 @@
  right: 0px;
  height: 50px;
  border: 0px;
- background-color: #c41902;
+ background-color: #db7027;
  color: aliceblue;
  width: 70px;
 }
@@ -146,11 +146,11 @@
 }
 
 #expand-modal {
-    border: 4px solid #000000;
+    border: 4px solid #252352;
 }
 
 #load-modal {
- border: 4px solid #c41902;
+ border: 4px solid #db7027;
 }
 
 #save-modal {
@@ -195,7 +195,7 @@
 
 #modal-load-button {
  background-color: rgba(0,0,0,0);
- border: 2px solid #c41902;
+ border: 2px solid #db7027;
  width: 90%;
  margin-left: 5%;
  margin-top: 10px;
@@ -203,7 +203,45 @@
 }
 
 #modal-load-button:hover {
+ background-color: #db7027;
+ color: aliceblue;
+}
+
+#expand-node-button {
+ background-color: rgba(0,0,0,0);
+ border: 2px solid #252352;
+ width: 90%;
+ margin-left: 5%;
+ margin-top: 10px;
+ height: 30px;
+}
+
+#delete-node-button {
+ background-color: rgba(0,0,0,0);
+ border: 2px solid #c41902;
+ width: 90%;
+ margin-left: 5%;
+ margin-top: 10px;
+ height: 30px;
+}
+
+#expand-node-button:hover {
+ background-color: #252352;
+ color: aliceblue;
+}
+
+#delete-node-button:hover {
  background-color: #c41902;
  color: aliceblue;
+}
+
+#expand-modal-divider {
+    border: 2px solid #252352;
+    margin: 20px 0px 20px 0px;
+}
+
+#expand-key-select {
+    margin-left: 10px;
+    width: 200px;
 }
 

@@ -17,7 +17,7 @@ class Cytoscape extends React.Component {
       },
     selector: 'node',
     style: {
-      // 'background-color': 'data(color)',
+      'background-color': '#252352',
       'label': 'data(label)',
       'font-size' : '25px',
       // 'width' : 'data(size)',
@@ -183,11 +183,18 @@ class Cytoscape extends React.Component {
           toast.error(`Unable to expand node. Error: ${response}`);
       },
     });
-  }
+  };
+
+  deleteNode = () => {
+    var selectedNode = this.cy.$(':selected');
+    this.cy.remove(selectedNode);
+    toast.success(`Node Successfully Removed`)
+    this.hideModal();
+  };
 
   interactWithGraph = () => {
     this.setCyData(this.cy.elements().jsons());
-  }
+  };
  
   constructor(props){
     super(props);
@@ -201,13 +208,16 @@ class Cytoscape extends React.Component {
         </div>
         <ExpandModal onClose={this.hideModal} show={this.state.show}>
           <label>Expand On Key: </label>
-          <select name="expandKey" value={this.state.selectedKey} onChange={this.updateDropdown}>
+          <select name="expandKey" id="expand-key-select" value={this.state.selectedKey} onChange={this.updateDropdown}>
             <option value=""></option>
           {this.state.dropdownList.map((e, key) => {
               return <option key={key} value={e.value}>{e.name}</option>;
           })}
           </select>
-          <button id="modal-load-button" type="button" onClick={this.expandNode}>Expand Node</button>
+          <button id="expand-node-button" type="button" onClick={this.expandNode}>Expand Node</button>
+          <hr id="expand-modal-divider"/>
+          <h3>Delete Node</h3>
+          <button id="delete-node-button" type="button" onClick={this.deleteNode}>Remove Node</button>
         </ExpandModal>
       </main>
     )

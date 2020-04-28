@@ -31,6 +31,20 @@ class SaveButton extends Component {
 		});
 	}
 
+	saveIdArray = (graphId) => {
+		if (localStorage.hasOwnProperty('graphs')){
+			var graphs = JSON.parse(localStorage.getItem("graphs"));
+			if(!graphs.includes(graphId) && graphs.length < 10){
+				graphs.push(graphId);
+			}
+			else if (!graphs.includes(graphId) && graphs.length >= 10){
+				graphs.shift();
+				graphs.push(graphId);
+			}
+			localStorage.setItem("graphs", JSON.stringify(graphs))
+		}
+	}
+
 	saveGraph = () => {
 		const cyData = this.state.cyData;
 		console.log(cyData);
@@ -42,7 +56,8 @@ class SaveButton extends Component {
 			data: { json_data },
 			context: this,
 			success: function (response) {
-				toast.success(response.Message)
+				toast.success(response.Message);
+				this.saveIdArray(response.id);
 				this.setState({
 					show: false
 				});

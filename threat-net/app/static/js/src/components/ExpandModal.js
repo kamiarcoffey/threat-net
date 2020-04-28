@@ -9,19 +9,17 @@ const ModalStyles = {
 
 
 
-export default class LoadModal extends Component {
+export default class ExpandModal extends Component {
     render() {
         if(!this.props.show){
             return null;
         }
         return (
-        <div id="load-modal" style = {ModalStyles}>
+        <div id="expand-modal" style = {ModalStyles}>
             <button className="modal-close" onClick={this.props.onClose}>X</button>
-            <h3 className="modal-title">Load Graph</h3>
+            <h3 className="modal-title">Expand Node</h3>
             <div>{this.props.children}</div>
         </div>
         );
     }
 }
-
-// className = "modalStyler"

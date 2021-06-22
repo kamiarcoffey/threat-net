@@ -1,7 +1,7 @@
 
 # Threat Net
 
-Threat Net is a graphing utility used to display connections between Indicators of Compromise (IoC), built for Webroot as a senior capstone project in Fall 2019 to Spring 2020.
+Threat Net is a graphing utility used to display connections between Indicators of Compromise (IoC)
 
 ## Installation Instructions
 
